@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SA SOLUTION | 한국 유학 공식 온라인 서류 접수 포털</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1F497D;
+      --primary-light: #2E75B6;
+      --primary-bg: #F0F5FA;
+      --accent: #00A86B;
+      --dark: #1E293B;
+      --muted: #64748B;
+      --border: #CBD5E1;
+      --card-bg: #FFFFFF;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --radius: 12px;
+      --shadow: 0 4px 20px -2px rgba(31, 73, 125, 0.08);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background-color: #F8FAFC;
+      color: var(--dark);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+    header {
+      background: linear-gradient(135deg, #1F497D 0%, #163259 100%);
+      color: white;
+      padding: 30px 20px 36px;
+      text-align: center;
+      border-bottom: 4px solid var(--primary-light);
+      position: relative;
+    }
+    
+    .lang-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      max-width: 820px;
+      margin: 0 auto 18px;
+    }
+    .lang-quick-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-lang-quick {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #FFFFFF;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: all 0.2s;
+    }
+    .btn-lang-quick:hover, .btn-lang-quick:active {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .lang-pill-container {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 12px;
+      border-radius: 24px;
+      gap: 8px;
+    }
+    .lang-icon {
+      font-size: 16px;
+    }
+    .lang-select {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      padding: 4px 6px;
+    }
+    .lang-select option {
+      background: #1E293B;
+      color: #FFFFFF;
+      font-size: 14px;
+    }
+    .brand-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .header-desc {
+      font-size: 14px;
+      color: #E2E8F0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .container {
+      max-width: 820px;
+      margin: 24px auto 0;
+      padding: 0 16px;
+    }
+    
+    /* Stepper */
+    .stepper {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      margin-bottom: 24px;
+      border: 1px solid #E2E8F0;
+    }
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: default;
+    }
+    .step-item.active {
+      color: var(--primary);
+    }
+    .step-item.completed {
+      color: var(--accent);
+    }
+    .step-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    .step-item.active .step-circle {
+      background: var(--primary);
+      color: white;
+    }
+    .step-item.completed .step-circle {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 24px;
+      border: 1px solid #E2E8F0;
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    /* Form Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group.full {
+      grid-column: span 2;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+    input, select, textarea {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      background: #FFF;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(46, 117, 182, 0.15);
+    }
+    .hint {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* File Upload Cards */
+    .upload-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+      background: #FAFBFD;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+    }
+    .upload-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .upload-info p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .btn-file {
+      border: 1px solid var(--primary-light);
+      color: var(--primary);
+      background-color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-file:hover {
+      background-color: var(--primary-bg);
+    }
+    .upload-btn-wrapper input[type=file] {
+      font-size: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .file-name-display {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      text-align: right;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .file-name-display.attached {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Actions */
+    .card-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+      border-top: 1px solid #F1F5F9;
+      padding-top: 20px;
+    }
+    .btn {
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-secondary {
+      background: #F1F5F9;
+      color: #475569;
+    }
+    .btn-secondary:hover {
+      background: #E2E8F0;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+    .btn-submit {
+      background: var(--accent);
+      color: white;
+      font-size: 15px;
+      padding: 13px 28px;
+    }
+    .btn-submit:hover {
+      background: #008f5a;
+    }
+
+    /* Summary & Legal */
+    .summary-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      font-size: 13px;
+    }
+    .summary-grid div strong {
+      color: var(--muted);
+      display: inline-block;
+      width: 130px;
+    }
+    .legal-box {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    .legal-box h4 {
+      color: #92400E;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legal-box p {
+      font-size: 12px;
+      color: #78350F;
+      line-height: 1.5;
+    }
+    .agreement-check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1E293B;
+      cursor: pointer;
+    }
+
+    /* Personal Information Consent Box */
+    .privacy-box {
+      background: #F5F9FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 20px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .privacy-box h4 {
+      color: #1E40AF;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .privacy-intro {
+      font-size: 12px;
+      color: #334155;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .privacy-table {
+      font-size: 12px;
+      border-top: 1px solid #DBEAFE;
+      padding-top: 4px;
+    }
+    .privacy-row {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px dashed #DBEAFE;
+    }
+    .privacy-row:last-child {
+      border-bottom: none;
+    }
+    .privacy-row dt {
+      font-weight: 700;
+      color: #1E40AF;
+    }
+    .privacy-row dd {
+      color: #334155;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .privacy-check {
+      align-items: flex-start;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #DBEAFE;
+      font-size: 13px;
+    }
+    .privacy-check input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: #1F497D;
+      cursor: pointer;
+    }
+    .privacy-box.invalid,
+    .legal-box.invalid {
+      border-color: #EF4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+    }
+    .privacy-check.invalid span {
+      color: #B91C1C;
+    }
+    @media (max-width: 640px) {
+      .privacy-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2px;
+      }
+    }
+
+    /* Success Screen */
+    .success-card {
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .success-icon {
+      width: 68px;
+      height: 68px;
+      background: #ECFDF5;
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      margin: 0 auto 20px;
+    }
+    .app-badge {
+      display: inline-block;
+      background: var(--primary-bg);
+      color: var(--primary);
+      padding: 8px 22px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin: 16px 0 20px;
+      border: 1px dashed var(--primary-light);
+    }
+    .next-steps-list {
+      text-align: left;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 18px 24px;
+      margin: 24px auto;
+      max-width: 580px;
+      font-size: 13px;
+      color: #475569;
+    }
+    .next-steps-list li {
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: minmax(0, 1fr); }
+      .form-group { min-width: 0; }
+      .form-group.full { grid-column: span 1; }
+      .upload-card { grid-template-columns: minmax(0, 1fr); }
+      .file-name-display { text-align: left; max-width: 100%; }
+      .summary-grid { grid-template-columns: minmax(0, 1fr); }
+      .stepper { font-size: 11px; padding: 12px 14px; }
+      .step-item span { display: none; }
+      .lang-bar { justify-content: center; }
+    }
+  
+    /* Status & Payment Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      max-width: 520px;
+      padding: 28px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid #E2E8F0;
+      position: relative;
+    }
+    .btn-header-lookup {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+      margin-top: 6px;
+    }
+    .btn-header-lookup:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="lang-bar">
+      <div class="lang-pill-container">
+        <span class="lang-icon">🌐</span>
+        <select id="langSelect" onchange="changeLanguage(this.value)" class="lang-select">
+          <option value="ko" selected>🇰🇷 한국어 (Korean)</option>
+          <option value="vi">🇻🇳 Tiếng Việt (Vietnamese)</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="zh">🇨🇳 中文 (Chinese)</option>
+          <option value="uz">🇺🇿 O'zbekcha (Uzbek)</option>
+          <option value="ru">🇷🇺 Русский (Russian)</option>
+          <option value="mn">🇲🇳 Монгол (Mongolian)</option>
+        </select>
+      </div>
+      <div class="lang-quick-buttons">
+        <button type="button" class="btn-lang-quick" onclick="changeLanguage('ko')">🇰🇷 한국어</button>
+        <button type="button" class="btn-lang-quick" onclick="changeLanguage('vi')">🇻🇳 Tiếng Việt</button>
+        <button type="button" class="btn-lang-quick" onclick="changeLanguage('en')">🇺🇸 English</button>
+        <button type="button" class="btn-lang-quick" onclick="changeLanguage('zh')">🇨🇳 中文</button>
+        <button type="button" class="btn-lang-quick" onclick="changeLanguage('uz')">🇺🇿 O'zbek</button>
+      </div>
+    </div>
+    <div class="brand-badge" data-i18n="brand_badge">(주)에스에이솔루션 · 공식 유학 서류 접수 포털</div>
+    <h1 data-i18n="header_title">한국 유학 · 온라인 서류 접수</h1>
+    <p class="header-desc" data-i18n="header_desc">외국인 유학생 및 해외 협력 에이전시 전용 공식 입학·비자 서류 온라인 제출 시스템</p>
+  </header>
+
+  <div class="container">
+    <!-- Stepper Navigation -->
+    <div class="stepper">
+      <div class="step-item active" id="step-nav-1">
+        <div class="step-circle">1</div>
+        <span data-i18n="step_nav_1">1. 기본 인적사항</span>
+      </div>
+      <div class="step-item" id="step-nav-2">
+        <div class="step-circle">2</div>
+        <span data-i18n="step_nav_2">2. 신원 및 학력서류</span>
+      </div>
+      <div class="step-item" id="step-nav-3">
+        <div class="step-circle">3</div>
+        <span data-i18n="step_nav_3">3. 재정 및 비자서류</span>
+      </div>
+      <div class="step-item" id="step-nav-4">
+        <div class="step-circle">4</div>
+        <span data-i18n="step_nav_4">4. 최종 검토 및 제출</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: Personal Information -->
+    <div class="card" id="step-1">
+      <div class="card-title">
+        <span>👤</span> <span data-i18n="step1_title">1단계 · 지원자 기본 인적사항</span>
+      </div>
+      <div class="card-desc" data-i18n="step1_desc">여권상에 표기된 정보와 정확히 일치하게 입력해 주세요.</div>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label data-i18n="label_fullname">영문 성명 (여권 표기) *</label>
+          <input type="text" id="fullName" placeholder="e.g. NGUYEN VAN NAM" data-i18n-placeholder="placeholder_fullname" required>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_nationality">국적 *</label>
+          <select id="nationality" required>
+            <option value="Vietnam">Vietnam (베트남)</option>
+            <option value="China">China (중국)</option>
+            <option value="Uzbekistan">Uzbekistan (우즈베키스탄)</option>
+            <option value="Mongolia">Mongolia (몽골)</option>
+            <option value="Myanmar">Myanmar (미얀마)</option>
+            <option value="Nepal">Nepal (네팔)</option>
+            <option value="Indonesia">Indonesia (인도네시아)</option>
+            <option value="Russia">Russia (러시아)</option>
+            <option value="Kazakhstan">Kazakhstan (카자흐스탄)</option>
+            <option value="Kyrgyzstan">Kyrgyzstan (키르기스스тан)</option>
+            <option value="Other">Other Country</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_dob">생년월일 *</label>
+          <input type="date" id="dob" required>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_gender">성별 *</label>
+          <select id="gender" required>
+            <option value="" data-i18n="opt_select_gender">성별 선택</option>
+            <option value="Male" data-i18n="opt_male">남성 (Male)</option>
+            <option value="Female" data-i18n="opt_female">여성 (Female)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_passport">여권 번호 *</label>
+          <input type="text" id="passportNo" placeholder="e.g. C12345678" data-i18n-placeholder="placeholder_passport" required>
+        </div>
+
+        <div class="form-group full">
+          <label data-i18n="label_target_univ">지원 희망 대학 *</label>
+          <select id="targetUniv" required>
+            <option value="신한대학교">신한대학교 (Shinhan University)</option>
+            <option value="대진대학교">대진대학교 (Daejin University)</option>
+            <option value="여주대학교">여주대학교 (Yeoju Institute of Technology)</option>
+            <option value="배재대학교">배재대학교 (Pai Chai University)</option>
+            <option value="삼육대학교">삼육대학교 (Sahmyook University)</option>
+            <option value="삼육보건대학교">삼육보건대학교 (Sahmyook Health University)</option>
+            <option value="경북보건대학교">경북보건대학교 (Gyeongbuk College of Health)</option>
+            <option value="예원예술대학교">예원예술대학교 (Yewon Arts University)</option>
+            <option value="웅지세무대학교">웅지세무대학교 (Woongji Tax University)</option>
+            <option value="성결대학교">성결대학교 (Sungkyul University)</option>
+            <option value="서울신학대학교">서울신학대학교 (Seoul Theological University)</option>
+            <option value="서울외국어대학원대학교">서울외국어대학원대학교 (SUFS)</option>
+            <option value="국제언어대학원대학교">국제언어대학원대학교 (IGSE)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_intake">입학 희망 학기 *</label>
+          <select id="intake" required>
+            <option value="2027-Spring" data-i18n="opt_intake_spring">2027년 1학기 봄학기 (3월 입학)</option>
+            <option value="2027-Summer" data-i18n="opt_intake_summer">2027년 여름학기 (6월 개강 - 어학연수)</option>
+            <option value="2027-Fall" data-i18n="opt_intake_fall">2027년 2학기 가을학기 (9월 입학)</option>
+            <option value="2027-Winter" data-i18n="opt_intake_winter">2027년 겨울학기 (12월 개강 - 어학연수)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_program">지원 과정 *</label>
+          <select id="programType" required>
+            <option value="D-4 Korean Language Training" data-i18n="opt_prog_d4">D-4 한국어 연수과정 (어학연수)</option>
+            <option value="D-2 Undergraduate Degree" data-i18n="opt_prog_d2_undergrad">D-2 정규 학부과정 (신입/편입)</option>
+            <option value="D-2 Master / Doctorate" data-i18n="opt_prog_d2_grad">D-2 대학원 석사/박사과정</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_agency">해외 협력 에이전시명</label>
+          <input type="text" id="agencyName" placeholder="e.g. Hanoi EduTech (Leave blank if direct)" data-i18n-placeholder="placeholder_agency">
+          <span class="hint" data-i18n="hint_agency">해외 협력 유학원(에이전시)이 있는 경우 기재</span>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="label_contact">연락처 (이메일 및 전화/SNS) *</label>
+          <input type="text" id="contactInfo" placeholder="e.g. student@gmail.com / +84 90 123 4567" data-i18n-placeholder="placeholder_contact" required>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button type="button" class="btn btn-primary" onclick="goToStep(2)" data-i18n="btn_next_academic">다음: 신원 및 학력서류 업로드 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Identity & Academic Documents -->
+    <div class="card" id="step-2" style="display: none;">
+      <div class="card-title">
+        <span>📑</span> <span data-i18n="step2_title">2단계 · 신원 및 학력 서류</span>
+      </div>
+      <div class="card-desc" data-i18n="step2_desc">공식 서류를 고화질 PDF 또는 선명한 이미지(JPG)로 업로드해 주세요.</div>
+
+      <!-- Doc 1: Passport -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_passport_title">1. 여권 정보면 사본 *</h4>
+          <p data-i18n="doc_passport_desc">유효기간 1년 이상 잔여 필수. 서명란에 자필 서명이 반드시 있어야 합니다.</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_passport" accept=".pdf,image/*" onchange="handleFile(this, 'file-passport')">
+          </div>
+          <div class="file-name-display" id="file-passport" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 2: Photo -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_photo_title">2. 여권용 증명사진 *</h4>
+          <p data-i18n="doc_photo_desc">흰색 배경, 3개월 이내 촬영, 3.5cm x 4.5cm 규격.</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_photo" accept="image/*,.pdf" onchange="handleFile(this, 'file-photo')">
+          </div>
+          <div class="file-name-display" id="file-photo" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 3: Family Relations -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_family_title">3. 가족관계증명서 (출생증명서) *</h4>
+          <p data-i18n="doc_family_desc">정부 발행 원본 및 영문 번역공증본 (부모-자녀 관계 증빙).</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_family" accept=".pdf,image/*" onchange="handleFile(this, 'file-family')">
+          </div>
+          <div class="file-name-display" id="file-family" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 4: Graduation Certificate -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_grad_title">4. 최종학력 졸업증명서 (고교/대학) *</h4>
+          <p data-i18n="doc_grad_desc">한국 영사확인 직인 또는 아포스티유(Apostille) 인증 필수.</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_grad" accept=".pdf,image/*" onchange="handleFile(this, 'file-grad')">
+          </div>
+          <div class="file-name-display" id="file-grad" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 5: Transcripts -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_trans_title">5. 전 학년 성적증명서 *</h4>
+          <p data-i18n="doc_trans_desc">전 학년 성적 표기, 영문 번역공증 및 영사확인/아포스티유 완료본.</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_trans" accept=".pdf,image/*" onchange="handleFile(this, 'file-trans')">
+          </div>
+          <div class="file-name-display" id="file-trans" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 6: TOPIK -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_topik_title">6. TOPIK 한국어능력시험 성적표 (선택)</h4>
+          <p data-i18n="doc_topik_desc">D-2 학위과정 지원 시 TOPIK 3급 이상(또는 공인영어성적) 필수 제출.</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_topik" accept=".pdf,image/*" onchange="handleFile(this, 'file-topik')">
+          </div>
+          <div class="file-name-display" id="file-topik" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button type="button" class="btn btn-secondary" onclick="goToStep(1)" data-i18n="btn_prev">← 이전 단계</button>
+        <button type="button" class="btn btn-primary" onclick="goToStep(3)" data-i18n="btn_next_financial">다음: 재정 및 비자서류 업로드 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Financial & Visa Documents -->
+    <div class="card" id="step-3" style="display: none;">
+      <div class="card-title">
+        <span>🏦</span> <span data-i18n="step3_title">3단계 · 재정 및 비자 서류</span>
+      </div>
+      <div class="card-desc" data-i18n="step3_desc">법무부 출입국 외국인청 심사 기준에 맞춘 최신 정규 서류를 첨부해 주세요.</div>
+
+      <!-- Doc 7: Bank Balance -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_bank_title">7. 은행 잔고증명서 *</h4>
+          <p data-i18n="doc_bank_desc">D-4 어학연수: 미화 $10,000 이상 / D-2 학위: 2,000만 원 이상 (발급 30일 이내).</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_bank" accept=".pdf,image/*" onchange="handleFile(this, 'file-bank')">
+          </div>
+          <div class="file-name-display" id="file-bank" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 8: Sponsor Income -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_income_title">8. 재정보증인(부모) 재직 및 소득증명서 *</h4>
+          <p data-i18n="doc_income_desc">연간 소득금액증명원, 재직증명서 (사업자의 경우 사업자등록증 첨부).</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_income" accept=".pdf,image/*" onchange="handleFile(this, 'file-income')">
+          </div>
+          <div class="file-name-display" id="file-income" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 9: SOP -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_sop_title">9. 수학계획서 및 자기소개서 (SOP) *</h4>
+          <p data-i18n="doc_sop_desc">한국어 또는 영어 작성. 지원자 본인의 자필 서명 및 작성일자 필수.</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_sop" accept=".pdf,image/*" onchange="handleFile(this, 'file-sop')">
+          </div>
+          <div class="file-name-display" id="file-sop" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <!-- Doc 10: TB Test -->
+      <div class="upload-card">
+        <div class="upload-info">
+          <h4 data-i18n="doc_tb_title">10. 결핵검진 결과보고서 *</h4>
+          <p data-i18n="doc_tb_desc">법무부 지정 병원 흉부 X-ray 검진 결과 (결핵 고위험국 필수).</p>
+        </div>
+        <div>
+          <div class="upload-btn-wrapper">
+            <button class="btn-file">📁 <span data-i18n="choose_file">파일 선택</span></button>
+            <input type="file" id="file_tb" accept=".pdf,image/*" onchange="handleFile(this, 'file-tb')">
+          </div>
+          <div class="file-name-display" id="file-tb" data-i18n="no_file">선택된 파일 없음</div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button type="button" class="btn btn-secondary" onclick="goToStep(2)" data-i18n="btn_prev">← 이전 단계</button>
+        <button type="button" class="btn btn-primary" onclick="goToStep(4)" data-i18n="btn_next_review">다음: 최종 검토 및 서류 제출 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Review & Legal Declaration -->
+    <div class="card" id="step-4" style="display: none;">
+      <div class="card-title">
+        <span>📝</span> <span data-i18n="step4_title">4단계 · 최종 검토 및 서류 제출</span>
+      </div>
+      <div class="card-desc" data-i18n="step4_desc">입력하신 정보와 첨부 서류를 확인하고 서류 위변조 방지 서약에 동의해 주세요.</div>
+
+      <!-- Summary Box -->
+      <div class="summary-box">
+        <div class="summary-grid">
+          <div><strong data-i18n="sum_name">성명(영문)</strong> <span id="rev-name">-</span></div>
+          <div><strong data-i18n="sum_passport">여권번호</strong> <span id="rev-passport">-</span></div>
+          <div><strong data-i18n="sum_univ">지망대학</strong> <span id="rev-univ">-</span></div>
+          <div><strong data-i18n="sum_program">지원과정</strong> <span id="rev-prog">-</span></div>
+          <div><strong data-i18n="sum_agency">접수 에이전시</strong> <span id="rev-agency">-</span></div>
+          <div><strong data-i18n="sum_contact">연락처</strong> <span id="rev-contact">-</span></div>
+        </div>
+      </div>
+
+      <!-- Legal Box -->
+      <div class="legal-box">
+        <h4 data-i18n="legal_title">서류 진위 확인 및 법적 책임 서약</h4>
+        <p data-i18n="legal_text">본인은 제출한 모든 정보와 서류가 사실이며 위조·변조되지 않았음을 엄숙히 확인합니다. 위조 서류 제출 시 대한민국 출입국관리법에 따라 즉시 입학 취소, 비자 불허, 강제 퇴거 및 법적 처벌을 받을 수 있음을 확인합니다.</p>
+        <label class="agreement-check">
+          <input type="checkbox" id="agreeTerms" onchange="clearConsentError('terms')">
+          <span data-i18n="legal_checkbox">위 서약 내용을 모두 읽었으며 이에 전적으로 동의합니다.</span>
+        </label>
+      </div>
+
+      <!-- Personal Information Collection & Use Consent (Required) -->
+      <div class="privacy-box" id="privacyBox">
+        <h4>
+          <span>🛡️</span>
+          <span data-i18n="privacy_title">개인정보 수집·이용 동의 (필수)</span>
+        </h4>
+        <p class="privacy-intro" data-i18n="privacy_intro">아래 내용을 확인하신 후 동의해 주세요. 동의하지 않으면 서류 접수가 되지 않습니다.</p>
+        <dl class="privacy-table">
+          <div class="privacy-row">
+            <dt data-i18n="privacy_label_controller">수집 주체</dt>
+            <dd data-i18n="privacy_val_controller">(주)에스에이솔루션 (SA Solution Co., Ltd.)</dd>
+          </div>
+          <div class="privacy-row">
+            <dt data-i18n="privacy_label_items">수집 항목</dt>
+            <dd data-i18n="privacy_val_items">성명·국적·생년월일·성별·여권 정보·연락처 등 인적사항, 학력 서류, 재정 증빙 서류, 비자 관련 서류</dd>
+          </div>
+          <div class="privacy-row">
+            <dt data-i18n="privacy_label_purpose">이용 목적</dt>
+            <dd data-i18n="privacy_val_purpose">한국 대학 및 어학연수 입학 지원, 제출 서류 검수 및 해당 대학 입학처 전달</dd>
+          </div>
+          <div class="privacy-row">
+            <dt data-i18n="privacy_label_retention">보유·이용 기간</dt>
+            <dd data-i18n="privacy_val_retention">입학 절차 완료 후 법령에서 정한 보관 기간까지 보관하며, 보관 기간이 끝나거나 삭제를 요청하시면 지체 없이 파기합니다.</dd>
+          </div>
+          <div class="privacy-row">
+            <dt data-i18n="privacy_label_refusal">동의 거부 시</dt>
+            <dd data-i18n="privacy_val_refusal">동의를 거부하실 수 있으나, 이 경우 서류 접수와 입학 지원이 불가합니다.</dd>
+          </div>
+        </dl>
+        <label class="agreement-check privacy-check" id="privacyCheckLabel">
+          <input type="checkbox" id="agreePrivacy" required aria-required="true" onchange="clearConsentError('privacy')">
+          <span data-i18n="privacy_checkbox">위 개인정보 수집·이용에 동의합니다. (필수)</span>
+        </label>
+      </div>
+
+      <div class="card-actions">
+        <button type="button" class="btn btn-secondary" onclick="goToStep(3)" data-i18n="btn_prev">← 이전 단계</button>
+        <button type="button" class="btn btn-submit" onclick="submitApplication()" data-i18n="btn_submit">🚀 온라인 서류 최종 제출</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div class="card success-card" id="step-success" style="display: none;">
+      <div class="success-icon">✓</div>
+      <h2 style="font-size: 24px; font-weight: 700; color: #1E293B;" data-i18n="success_title">서류 접수가 성공적으로 완료되었습니다!</h2>
+      <p style="font-size: 14px; color: var(--muted); margin-top: 6px;" data-i18n="success_desc">제출하신 서류가 (주)에스에이솔루션의 중앙 클라우드 서류함으로 안전하게 분류되어 저장되었습니다. 전문 입학 심사팀에서 즉시 1차 정밀 검수를 시작합니다.</p>
+
+      <div class="app-badge">
+        <span data-i18n="success_app_id_label">공식 접수 번호:</span> <span id="res-app-id">SA27-D4-8921</span>
+      </div>
+      <div>
+        <span data-i18n="success_univ_label">지원 대학:</span> <strong id="res-univ" style="color: var(--primary);">신한대학교</strong>
+      </div>
+
+      <!-- UNIVERSITY DIRECT PAYMENT GUIDANCE BOX -->
+      <div class="fee-payment-box" style="margin: 24px 0; background: #F8FAFC; border: 2px solid #E2E8F0; border-radius: 12px; padding: 22px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <h3 style="font-size: 17px; font-weight: 700; color: #1E293B; display: flex; align-items: center; gap: 8px;">
+            <span>🏛️</span> <span data-i18n="univ_pay_title">대학 입학처 공식 계좌 직접 납부 안내</span>
+          </h3>
+          <span style="background: #E0E7FF; color: #3730A3; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;" data-i18n="univ_pay_badge">
+            ● 대학 직납 원칙
+          </span>
+        </div>
+        
+        <p style="font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.5;" data-i18n="univ_pay_desc">
+          대한민국 교육부 외국인 유학생 유치 관리 지침에 따라, <strong>입학 전형료 및 학비는 지원 대학의 공식 계좌로 학생 명의로 직접 송금</strong>되어야 합니다. (에이전시 대리 수납 절대 금지)
+        </p>
+
+        <div style="background: white; border: 1px solid #CBD5E1; border-radius: 8px; padding: 14px 16px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+            <span style="color: var(--muted);" data-i18n="univ_pay_inst_label">납부 대상:</span>
+            <strong style="color: var(--primary);" id="univ-pay-name">지망 대학 공식 입학처</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+            <span style="color: var(--muted);" data-i18n="univ_pay_amount_label">공식 전형료:</span>
+            <strong style="color: #1E293B;">대학별 고시 금액 (약 100,000 ~ 150,000 KRW)</strong>
+          </div>
+          <div style="font-size: 13px; border-top: 1px dashed #E2E8F0; padding-top: 8px; line-height: 1.5; color: #475569;" data-i18n="univ_pay_notice">
+            ※ SA솔루션의 1차 서류 정밀 검수 완료 후, 지원자 및 협력 에이전시 공식 이메일로 <strong>해당 대학 입학처의 공식 해외 송금 인보이스(SWIFT / 가상계좌 / Flywire)</strong>를 공식 발송해 드립니다.
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" onclick="window.print()" style="flex: 1; min-width: 160px; font-size: 13px; font-weight: 600; padding: 10px;" data-i18n="btn_print">
+            📄 공식 접수증 인쇄 / 저장
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="openStatusModal()" style="font-size: 13px; font-weight: 600; padding: 10px;" data-i18n="btn_check_status_shortcut">
+            🔍 서류 심사 현황 조회
+          </button>
+        </div>
+      </div>
+
+      <div class="next-steps-list">
+        <h4 style="font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px;" data-i18n="next_steps_title">향후 진행 절차</h4>
+        <ol style="padding-left: 20px; line-height: 1.6;">
+          <li data-i18n="next_step_1">1. <strong>1차 서류 정밀 검수 (24~48시간 이내):</strong> 영사확인 직인, 잔고증명서 유효기간 등을 철저히 검증합니다.</li>
+          <li data-i18n="next_step_2">2. <strong>보완 사항 즉시 통보:</strong> 서류에 미비점이 있을 경우 학생 및 에이전시 이메일로 보완 안내 메일이 자동 발송됩니다.</li>
+          <li data-i18n="next_step_3">3. <strong>대학 입학처 정식 접수:</strong> 검수 완료 서류는 즉시 해당 대학 입학처로 인계되어 표준입학허가서(CoA) 발급이 진행됩니다.</li>
+        </ol>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 12px;">
+        <button class="btn btn-secondary" onclick="window.print()" data-i18n="btn_print">접수증 출력 / 저장</button>
+        <button class="btn btn-primary" onclick="location.reload()" data-i18n="btn_submit_another">추가 지원자 접수하기</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // =========================================================================
+    // MULTI-LANGUAGE TRANSLATION DICTIONARY (7 LANGUAGES)
+    // =========================================================================
+    const I18N = {"en": {"brand_badge": "(주)에스에이솔루션 · SA SOLUTION OFFICIAL PORTAL", "header_title": "Study in Korea · Document Submission", "header_desc": "Official Online Application & Visa Document Portal for International Students and Overseas Agency Partners", "step_nav_1": "1. Personal", "step_nav_2": "2. Identity & Academic", "step_nav_3": "3. Financial & Visa", "step_nav_4": "4. Review & Submit", "step1_title": "Step 1 · Applicant Information", "step1_desc": "Please provide accurate personal details as shown on your passport.", "label_fullname": "Full Name (English as in Passport) *", "placeholder_fullname": "e.g. NGUYEN VAN NAM", "label_nationality": "Nationality *", "label_dob": "Date of Birth *", "label_gender": "Gender *", "opt_select_gender": "Select Gender", "opt_male": "Male", "opt_female": "Female", "label_passport": "Passport Number *", "placeholder_passport": "e.g. C12345678", "label_target_univ": "Target University in Korea *", "label_intake": "Intended Intake *", "label_program": "Program Track *", "label_agency": "Overseas Partner Agency Name", "placeholder_agency": "e.g. Hanoi EduTech (Leave blank if direct application)", "label_contact": "Contact Info (Email & WhatsApp/Zalo) *", "placeholder_contact": "e.g. student@gmail.com / +84 90 123 4567", "btn_next_academic": "Next: Identity & Academic Documents →", "step2_title": "Step 2 · Identity & Academic Documents", "step2_desc": "Upload required official documents. Clear PDF or high-resolution JPG scans only.", "doc_passport_title": "1. Passport Information Page *", "doc_passport_desc": "Must have at least 1 year validity remaining. Signature line must be signed.", "doc_photo_title": "2. Passport-Size Color Photo *", "doc_photo_desc": "White background, taken within 3 months, 3.5cm x 4.5cm standard.", "doc_family_title": "3. Family Relations Certificate *", "doc_family_desc": "Government-issued birth certificate/family register with certified English translation.", "doc_grad_title": "4. High School / University Graduation Certificate *", "doc_grad_desc": "Must have Korean Consular Legalization or Apostille sticker.", "doc_trans_title": "5. Official Academic Transcripts *", "doc_trans_desc": "All semesters/grades. Certified English translation & Consular/Apostille stamp.", "doc_topik_title": "6. TOPIK or English Proficiency Score (Optional for D-4)", "doc_topik_desc": "Required for D-2 Degree track (TOPIK Level 3+ or TOEFL/IELTS).", "btn_prev": "← Back", "btn_next_financial": "Next: Financial & Visa Documents →", "step3_title": "Step 3 · Financial & Visa Documents", "step3_desc": "Strict immigration compliance requires genuine and fresh financial documentation.", "doc_bank_title": "7. Bank Balance Certificate *", "doc_bank_desc": "D-4: Min USD $10,000 / D-2: Min KRW 20,000,000. Issued within the last 30 days.", "doc_income_title": "8. Sponsor / Parents' Employment & Income Proof *", "doc_income_desc": "Proof of annual income, tax statements, and business license if self-employed.", "doc_sop_title": "9. Study Plan & Personal Statement (SOP) *", "doc_sop_desc": "Written in English or Korean. Must be signed and dated by the student.", "doc_tb_title": "10. Tuberculosis (TB) Chest X-ray Report *", "doc_tb_desc": "From designated hospital. Mandatory for students from high-TB incidence countries.", "btn_next_review": "Next: Final Review & Submission →", "step4_title": "Step 4 · Review & Submit Application", "step4_desc": "Review your application summary and confirm document authenticity.", "summary_title": "Application Summary", "sum_name": "Full Name", "sum_passport": "Passport", "sum_univ": "Target University", "sum_program": "Program Track", "sum_agency": "Agency", "sum_contact": "Contact", "legal_title": "LEGAL DECLARATION & INTEGRITY PLEDGE", "legal_text": "I hereby certify that all information and attached documents are true, complete, and authentic. I understand that submitting forged, fraudulent, or altered documents will lead to immediate rejection, visa cancellation, and legal liability under the Immigration Control Act of the Republic of Korea.", "legal_checkbox": "I have read, understood, and solemnly agree to the above declaration.", "btn_submit": "🚀 Submit Official Application", "btn_uploading": "⏳ Uploading to SA Solution Cloud Drive... Please wait.", "success_title": "Application Successfully Submitted!", "success_app_id_label": "Official Application ID:", "success_univ_label": "Target Institution:", "success_desc": "Your documents have been encrypted and securely routed to SA SOLUTION's Central Cloud Drive. Our admission team is now conducting the preliminary document review.", "next_steps_title": "What Happens Next?", "next_step_1": "1. <strong>Preliminary Document Review (24-48 hrs):</strong> Our visa specialists verify consular legalizations and bank balance validity.", "next_step_2": "2. <strong>Direct Communication:</strong> You and your overseas agency will receive an email confirmation and updates if any supplementation is needed.", "next_step_3": "3. <strong>University Filing:</strong> Once verified, official admission and Certificate of Admission (CoA) processing will commence.", "btn_print": "Print Submission Receipt", "btn_submit_another": "Submit Another Application", "choose_file": "Choose File", "no_file": "No file chosen", "opt_intake_spring": "2027 Spring Semester (March)", "opt_intake_summer": "2027 Summer Intake (June - Language)", "opt_intake_fall": "2027 Fall Semester (September)", "opt_intake_winter": "2027 Winter Intake (December - Language)", "opt_prog_d4": "D-4 Korean Language Trainee (Language Training)", "opt_prog_d2_undergrad": "D-2 Undergraduate Degree (Freshman/Transfer)", "opt_prog_d2_grad": "D-2 Master / Ph.D (Graduate School)", "hint_agency": "Recruiting agency partner if applicable", "header_check_status": "Track Application Status", "fee_section_title": "Application & Preliminary Screening Fee Payment", "fee_status_pending": "● Pending Payment", "fee_status_completed": "● Payment Completed", "fee_desc": "Your documents have been safely saved! You may pay the application fee now via international card, or pay later within 48 hours using your unique payment link.", "fee_item_label": "Payment Item:", "fee_item_name": "International Student Application & Legal Review Fee", "fee_amount_label": "Amount Due:", "btn_pay_now": "💳 Pay Application Fee Now (Visa / Master / JCB / UnionPay)", "btn_copy_pay_link": "🔗 Pay Later (Copy Direct Payment Link)", "btn_check_status_shortcut": "🔍 Check Application Status", "fee_paid_title": "Payment Completed Successfully!", "modal_lookup_title": "Track Application & Review Status", "modal_lookup_desc": "Enter your Application ID (e.g. SA27-D4-001) and Passport Number to check document verification progress.", "modal_app_id_label": "Application ID *", "modal_passport_label": "Passport Number *", "btn_lookup": "Search", "link_copied_alert": "Payment link copied to clipboard! You can use this link to pay anytime.", "univ_pay_title": "Direct Payment to University Admission Office", "univ_pay_badge": "● University Direct Payment Only", "univ_pay_desc": "In compliance with Ministry of Education regulations, application fees and tuition must be wired directly to the designated university account under the student's name. (Agency collection prohibited)", "univ_pay_inst_label": "Payee:", "univ_pay_amount_label": "Application Fee:", "univ_pay_notice": "※ Upon completion of SA SOLUTION's preliminary document review, official overseas wire instructions (SWIFT / Virtual Account / Flywire) from the university admission office will be sent to your registered email."}, "ko": {"brand_badge": "(주)에스에이솔루션 · 공식 유학 서류 접수 포털", "header_title": "한국 유학 · 온라인 서류 접수", "header_desc": "외국인 유학생 및 해외 협력 에이전시 전용 공식 입학·비자 서류 온라인 제출 시스템", "step_nav_1": "1. 기본 인적사항", "step_nav_2": "2. 신원 및 학력서류", "step_nav_3": "3. 재정 및 비자서류", "step_nav_4": "4. 최종 검토 및 제출", "step1_title": "1단계 · 지원자 기본 인적사항", "step1_desc": "여권상에 표기된 정보와 정확히 일치하게 입력해 주세요.", "label_fullname": "영문 성명 (여권 표기) *", "placeholder_fullname": "예: NGUYEN VAN NAM", "label_nationality": "국적 *", "label_dob": "생년월일 *", "label_gender": "성별 *", "opt_select_gender": "성별 선택", "opt_male": "남성 (Male)", "opt_female": "여성 (Female)", "label_passport": "여권 번호 *", "placeholder_passport": "예: C12345678", "label_target_univ": "지원 희망 대학 *", "label_intake": "입학 희망 학기 *", "label_program": "지원 과정 *", "label_agency": "해외 협력 에이전시명", "placeholder_agency": "예: 하노이 에듀텍 (직접 지원 시 빈칸)", "label_contact": "연락처 (이메일 및 전화/SNS) *", "placeholder_contact": "예: student@gmail.com / +84 90 123 4567", "btn_next_academic": "다음: 신원 및 학력서류 업로드 →", "step2_title": "2단계 · 신원 및 학력 서류", "step2_desc": "공식 서류를 고화질 PDF 또는 선명한 이미지(JPG)로 업로드해 주세요.", "doc_passport_title": "1. 여권 정보면 사본 *", "doc_passport_desc": "유효기간 1년 이상 잔여 필수. 서명란에 자필 서명이 반드시 있어야 합니다.", "doc_photo_title": "2. 여권용 증명사진 *", "doc_photo_desc": "흰색 배경, 3개월 이내 촬영, 3.5cm x 4.5cm 규격.", "doc_family_title": "3. 가족관계증명서 (출생증명서) *", "doc_family_desc": "정부 발행 원본 및 영문 번역공증본 (부모-자녀 관계 증빙).", "doc_grad_title": "4. 최종학력 졸업증명서 (고교/대학) *", "doc_grad_desc": "한국 영사확인 직인 또는 아포스티유(Apostille) 인증 필수.", "doc_trans_title": "5. 전 학년 성적증명서 *", "doc_trans_desc": "전 학년 성적 표기, 영문 번역공증 및 영사확인/아포스티유 완료본.", "doc_topik_title": "6. TOPIK 한국어능력시험 성적표 (선택)", "doc_topik_desc": "D-2 학위과정 지원 시 TOPIK 3급 이상(또는 공인영어성적) 필수 제출.", "btn_prev": "← 이전 단계", "btn_next_financial": "다음: 재정 및 비자서류 업로드 →", "step3_title": "3단계 · 재정 및 비자 서류", "step3_desc": "법무부 출입국 외국인청 심사 기준에 맞춘 최신 정규 서류를 첨부해 주세요.", "doc_bank_title": "7. 은행 잔고증명서 *", "doc_bank_desc": "D-4 어학연수: 미화 $10,000 이상 / D-2 학위: 2,000만 원 이상 (발급 30일 이내).", "doc_income_title": "8. 재정보증인(부모) 재직 및 소득증명서 *", "doc_income_desc": "연간 소득금액증명원, 재직증명서 (사업자의 경우 사업자등록증 첨부).", "doc_sop_title": "9. 수학계획서 및 자기소개서 (SOP) *", "doc_sop_desc": "한국어 또는 영어 작성. 지원자 본인의 자필 서명 및 작성일자 필수.", "doc_tb_title": "10. 결핵검진 결과보고서 *", "doc_tb_desc": "법무부 지정 병원 흉부 X-ray 검진 결과 (결핵 고위험국 필수).", "btn_next_review": "다음: 최종 검토 및 서류 제출 →", "step4_title": "4단계 · 최종 검토 및 서류 제출", "step4_desc": "입력하신 정보와 첨부 서류를 확인하고 서류 위변조 방지 서약에 동의해 주세요.", "summary_title": "지원서 요약 확인", "sum_name": "성명(영문)", "sum_passport": "여권번호", "sum_univ": "지망대학", "sum_program": "지원과정", "sum_agency": "접수 에이전시", "sum_contact": "연락처", "legal_title": "서류 진위 확인 및 법적 책임 서약", "legal_text": "본인은 제출한 모든 정보와 서류가 사실이며 위조·변조되지 않았음을 엄숙히 확인합니다. 위조 서류 제출 시 대한민국 출입국관리법에 따라 즉시 입학 취소, 비자 불허, 강제 퇴거 및 법적 처벌을 받을 수 있음을 확인합니다.", "legal_checkbox": "위 서약 내용을 모두 읽었으며 이에 전적으로 동의합니다.", "btn_submit": "🚀 온라인 서류 최종 제출", "btn_uploading": "⏳ SA솔루션 클라우드 드라이브로 암호화 업로드 중...", "success_title": "서류 접수가 성공적으로 완료되었습니다!", "success_app_id_label": "공식 접수 번호:", "success_univ_label": "지원 대학:", "success_desc": "제출하신 서류가 (주)에스에이솔루션의 중앙 클라우드 서류함으로 안전하게 분류되어 저장되었습니다. 전문 입학 심사팀에서 즉시 1차 정밀 검수를 시작합니다.", "next_steps_title": "향후 진행 절차", "next_step_1": "1. <strong>1차 서류 정밀 검수 (24~48시간 이내):</strong> 영사확인 직인, 잔고증명서 유효기간 등을 철저히 검증합니다.", "next_step_2": "2. <strong>보완 사항 즉시 통보:</strong> 서류에 미비점이 있을 경우 학생 및 에이전시 이메일로 보완 안내 메일이 자동 발송됩니다.", "next_step_3": "3. <strong>대학 입학처 정식 접수:</strong> 검수 완료 서류는 즉시 해당 대학 입학처로 인계되어 표준입학허가서(CoA) 발급이 진행됩니다.", "btn_print": "접수증 출력 / 저장", "btn_submit_another": "추가 지원자 접수하기", "choose_file": "파일 선택", "no_file": "선택된 파일 없음", "opt_intake_spring": "2027년 1학기 봄학기 (3월 입학)", "opt_intake_summer": "2027년 여름학기 (6월 개강 - 어학연수)", "opt_intake_fall": "2027년 2학기 가을학기 (9월 입학)", "opt_intake_winter": "2027년 겨울학기 (12월 개강 - 어학연수)", "opt_prog_d4": "D-4 한국어 연수과정 (어학연수)", "opt_prog_d2_undergrad": "D-2 정규 학부과정 (신입/편입)", "opt_prog_d2_grad": "D-2 대학원 석사/박사과정", "hint_agency": "해외 협력 유학원(에이전시)이 있는 경우 기재", "header_check_status": "접수 내역 및 심사 조회", "fee_section_title": "입학 전형료 및 1차 서류 심사비 결제", "fee_status_pending": "● 결제대기 (Pending Payment)", "fee_status_completed": "● 결제완료 (Payment Completed)", "fee_desc": "서류 접수는 안전하게 완료되었습니다! 전형료는 지금 즉시 해외 카드로 결제하시거나, 나중에 결제 링크를 통해 48시간 이내에 언제든 결제하실 수 있습니다. (전형료 결제 확인 후 대학 심사가 개시됩니다)", "fee_item_label": "결제 항목:", "fee_item_name": "외국인 유학생 정규 전형료 & 1차 검수비", "fee_amount_label": "결제 금액:", "btn_pay_now": "💳 지금 해외 카드로 전형료 결제하기 (Visa / Master / JCB / UnionPay)", "btn_copy_pay_link": "🔗 나중에 결제 (결제 링크 복사)", "btn_check_status_shortcut": "🔍 접수/결제 상태 확인", "fee_paid_title": "전형료 결제가 성공적으로 완료되었습니다!", "modal_lookup_title": "접수 내역 및 서류 심사 조회", "modal_lookup_desc": "공식 접수번호(예: SA27-D4-001)와 여권번호를 입력하시면 1차 서류 검수 진행 상태와 대학 인계 현황을 확인하실 수 있습니다.", "modal_app_id_label": "접수 번호 (Application ID) *", "modal_passport_label": "여권 번호 (Passport No) *", "btn_lookup": "조회하기", "link_copied_alert": "결제 링크가 복사되었습니다! 이 링크로 접속하시면 언제든 카드로 결제하실 수 있습니다.", "univ_pay_title": "대학 입학처 공식 계좌 직접 납부 안내", "univ_pay_badge": "● 대학 직납 원칙", "univ_pay_desc": "대한민국 교육부 외국인 유학생 유치 관리 지침에 따라, 입학 전형료 및 학비는 지원 대학의 공식 계좌로 학생 명의로 직접 송금되어야 합니다. (에이전시 대리 수납 절대 금지)", "univ_pay_inst_label": "납부 대상:", "univ_pay_amount_label": "공식 전형료:", "univ_pay_notice": "※ SA솔루션의 1차 서류 정밀 검수 완료 후, 지원자 및 협력 에이전시 공식 이메일로 해당 대학 입학처의 공식 해외 송금 인보이스(SWIFT / 가상계좌 / Flywire)를 공식 발송해 드립니다."}, "vi": {"brand_badge": "CÔNG TY CP SA SOLUTION · CỔNG NỘP HỒ SƠ CHÍNH THỨC", "header_title": "Du Học Hàn Quốc · Cổng Nộp Hồ Sơ Trực Tuyến", "header_desc": "Cổng tiếp nhận hồ sơ xin visa & nhập học chính thức dành cho du học sinh quốc tế và các trung tâm đối tác", "step_nav_1": "1. Thông tin cá nhân", "step_nav_2": "2. Thân nhân & Học vấn", "step_nav_3": "3. Tài chính & Visa", "step_nav_4": "4. Kiểm tra & Nộp hồ sơ", "step1_title": "Bước 1 · Thông tin cá nhân của ứng viên", "step1_desc": "Vui lòng nhập chính xác thông tin như trên hộ chiếu của bạn.", "label_fullname": "Họ và tên (Tiếng Anh theo Hộ chiếu) *", "placeholder_fullname": "Ví dụ: NGUYEN VAN NAM", "label_nationality": "Quốc tịch *", "label_dob": "Ngày tháng năm sinh *", "label_gender": "Giới tính *", "opt_select_gender": "Chọn giới tính", "opt_male": "Nam (Male)", "opt_female": "Nữ (Female)", "label_passport": "Số hộ chiếu *", "placeholder_passport": "Ví dụ: C12345678", "label_target_univ": "Trường Đại học đăng ký tại Hàn Quốc *", "label_intake": "Kỳ nhập học dự kiến *", "label_program": "Hệ đào tạo *", "label_agency": "Tên Trung tâm / Công ty tư vấn du học đối tác", "placeholder_agency": "Ví dụ: Hanoi EduTech (Để trống nếu nộp tự do)", "label_contact": "Thông tin liên hệ (Email & Zalo/WhatsApp) *", "placeholder_contact": "Ví dụ: student@gmail.com / +84 90 123 4567", "btn_next_academic": "Tiếp theo: Tải lên hồ sơ nhân thân & học vấn →", "step2_title": "Bước 2 · Hồ sơ nhân thân & Học vấn", "step2_desc": "Vui lòng tải lên tài liệu bản scan rõ nét định dạng PDF hoặc hình ảnh (JPG).", "doc_passport_title": "1. Bản scan trang thông tin Hộ chiếu *", "doc_passport_desc": "Hộ chiếu còn hạn tối thiểu 1 năm. Trang ký tên bắt buộc phải có chữ ký của học sinh.", "doc_photo_title": "2. Ảnh thẻ làm visa *", "doc_photo_desc": "Phông nền trắng, chụp trong vòng 3 tháng, chuẩn kích thước 3.5cm x 4.5cm.", "doc_family_title": "3. Giấy khai sinh / Sổ hộ khẩu (Xác nhận cư trú) *", "doc_family_desc": "Bản gốc hoặc bản sao công chứng kèm dịch thuật công chứng tiếng Anh/Hàn.", "doc_grad_title": "4. Bằng tốt nghiệp THPT hoặc Đại học *", "doc_grad_desc": "Bắt buộc phải có tem Hợp pháp hóa lãnh sự (Bộ Ngoại giao & ĐSQ/LSQ Hàn Quốc).", "doc_trans_title": "5. Học bạ THPT hoặc Bảng điểm Đại học *", "doc_trans_desc": "Bảng điểm đầy đủ các năm học, dịch thuật công chứng và có tem Hợp pháp hóa lãnh sự.", "doc_topik_title": "6. Chứng chỉ TOPIK hoặc Tiếng Anh (Không bắt buộc với D-4)", "doc_topik_desc": "Bắt buộc đối với hệ Đại học/Thạc sĩ D-2 (TOPIK cấp 3 trở lên hoặc IELTS).", "btn_prev": "← Quay lại", "btn_next_financial": "Tiếp theo: Tải lên hồ sơ tài chính & visa →", "step3_title": "Bước 3 · Hồ sơ tài chính & Visa", "step3_desc": "Theo quy định nghiêm ngặt của Cục Quản lý Xuất nhập cảnh Hàn Quốc, giấy tờ tài chính phải chính xác và còn hạn.", "doc_bank_title": "7. Giấy xác nhận số dư tài khoản ngân hàng (Sổ tiết kiệm) *", "doc_bank_desc": "Hệ D-4: Tối thiểu 10,000 USD / Hệ D-2: Tối thiểu 20,000,000 KRW. Cấp trong vòng 30 ngày gần nhất.", "doc_income_title": "8. Hồ sơ chứng minh công việc & thu nhập của bố mẹ *", "doc_income_desc": "Hợp đồng lao động, bảng lương, sao kê thu nhập, hoặc giấy phép đăng ký kinh doanh.", "doc_sop_title": "9. Kế hoạch học tập & Giới thiệu bản thân (SOP) *", "doc_sop_desc": "Viết bằng tiếng Anh hoặc tiếng Hàn. Phải có chữ ký trực tiếp và ghi rõ ngày tháng.", "doc_tb_title": "10. Phiếu xét nghiệm bệnh lao phổi (Chụp X-quang) *", "doc_tb_desc": "Khám tại bệnh viện được Đại sứ quán Hàn Quốc chỉ định. Kết quả phải bình thường.", "btn_next_review": "Tiếp theo: Kiểm tra tổng thể & Nộp hồ sơ →", "step4_title": "Bước 4 · Kiểm tra lại & Nộp hồ sơ", "step4_desc": "Vui lòng xem lại thông tin đã nhập và cam kết tính trung thực của giấy tờ.", "summary_title": "Tóm tắt hồ sơ đăng ký", "sum_name": "Họ và tên", "sum_passport": "Số hộ chiếu", "sum_univ": "Trường ĐH đăng ký", "sum_program": "Hệ đào tạo", "sum_agency": "Trung tâm du học", "sum_contact": "Thông tin liên hệ", "legal_title": "CAM KẾT TRUNG THỰC & TRÁCH NHIỆM PHÁP LÝ", "legal_text": "Tôi xin cam đoan toàn bộ thông tin và giấy tờ đính kèm là hoàn toàn chính xác, trung thực và không bị làm giả. Tôi hiểu rằng việc nộp giấy tờ giả mạo sẽ dẫn đến việc bị từ chối nhập học, hủy visa và chịu trách nhiệm pháp lý theo Luật Quản lý Xuất nhập cảnh Hàn Quốc.", "legal_checkbox": "Tôi đã đọc, hiểu rõ và hoàn toàn đồng ý với cam kết trên.", "btn_submit": "🚀 Nộp Hồ Sơ Nhập Học Chính Thức", "btn_uploading": "⏳ Đang tải tài liệu lên Cloud Drive của SA Solution... Vui lòng đợi.", "success_title": "Hồ Sơ Đã Được Nộp Thành Công!", "success_app_id_label": "Mã số hồ sơ chính thức:", "success_univ_label": "Trường Đại học:", "success_desc": "Hồ sơ của bạn đã được mã hóa và lưu trữ an toàn vào Cloud Drive của SA SOLUTION. Đội ngũ chuyên gia thị thực của chúng tôi đang tiến hành xét duyệt hồ sơ đợt 1.", "next_steps_title": "Các bước tiếp theo là gì?", "next_step_1": "1. <strong>Xét duyệt hồ sơ ban đầu (24-48 giờ):</strong> Kiểm tra tem Hợp pháp hóa lãnh sự, số dư tài khoản ngân hàng.", "next_step_2": "2. <strong>Thông báo bổ sung:</strong> Nếu cần bổ sung hoặc sửa đổi giấy tờ, hệ thống sẽ gửi email chi tiết cho bạn và trung tâm.", "next_step_3": "3. <strong>Nộp lên trường Đại học:</strong> Hồ sơ đạt chuẩn sẽ được gửi thẳng đến văn phòng tuyển sinh của trường để xin cấp Thư mời / Mã visa (CoA).", "btn_print": "In Biên Nhận Hồ Sơ", "btn_submit_another": "Nộp Hồ Sơ Cho Ứng Viên Khác", "choose_file": "Chọn tệp", "no_file": "Chưa chọn tệp nào", "opt_intake_spring": "Kỳ mùa Xuân 2027 (Nhập học tháng 3)", "opt_intake_summer": "Kỳ mùa Hè 2027 (Khai giảng tháng 6 - Tiếng Hàn)", "opt_intake_fall": "Kỳ mùa Thu 2027 (Nhập học tháng 9)", "opt_intake_winter": "Kỳ mùa Đông 2027 (Khai giảng tháng 12 - Tiếng Hàn)", "opt_prog_d4": "D-4 Hệ Du học tiếng Hàn (Khóa tiếng)", "opt_prog_d2_undergrad": "D-2 Hệ Đại học chính quy (Mới / Chuyển tiếp)", "opt_prog_d2_grad": "D-2 Hệ Thạc sĩ / Tiến sĩ (Sau đại học)", "hint_agency": "Tên công ty tư vấn du học nếu có", "header_check_status": "Tra Cứu Hồ Sơ", "fee_section_title": "Thanh Toán Lệ Phí Xét Tuyển & Thẩm Định Hồ Sơ", "fee_status_pending": "● Chờ thanh toán (Pending)", "fee_status_completed": "● Đã thanh toán (Completed)", "fee_desc": "Hồ sơ của bạn đã được lưu trữ an toàn! Bạn có thể thanh toán lệ phí ngay bằng thẻ quốc tế, hoặc thanh toán sau trong vòng 48 giờ qua đường link riêng.", "fee_item_label": "Khoản thanh toán:", "fee_item_name": "Lệ phí xét tuyển & Thẩm định hồ sơ du học", "fee_amount_label": "Số tiền:", "btn_pay_now": "💳 Thanh toán ngay bằng thẻ quốc tế (Visa / Master / JCB)", "btn_copy_pay_link": "🔗 Thanh toán sau (Sao chép liên kết thanh toán)", "btn_check_status_shortcut": "🔍 Kiểm tra trạng thái hồ sơ", "fee_paid_title": "Thanh toán lệ phí thành công!", "modal_lookup_title": "Tra Cứu Tiến Độ Hồ Sơ", "modal_lookup_desc": "Nhập Mã hồ sơ và Số hộ chiếu để kiểm tra kết quả thẩm định hồ sơ.", "modal_app_id_label": "Mã hồ sơ (Application ID) *", "modal_passport_label": "Số hộ chiếu (Passport No) *", "btn_lookup": "Tra cứu", "link_copied_alert": "Đã sao chép liên kết thanh toán! Bạn có thể dùng liên kết này để thanh toán bất cứ lúc nào.", "univ_pay_title": "Hướng Dẫn Nộp Tiền Trực Tiếp Vào Tài Khoản Trường ĐH", "univ_pay_badge": "● Nộp trực tiếp cho trường", "univ_pay_desc": "Theo quy định của Bộ Giáo dục Hàn Quốc, lệ phí xét tuyển và học phí bắt buộc phải được chuyển trực tiếp vào tài khoản của trường Đại học mang tên học sinh.", "univ_pay_inst_label": "Đơn vị thụ hưởng:", "univ_pay_amount_label": "Lệ phí tuyển sinh:", "univ_pay_notice": "※ Sau khi SA SOLUTION thẩm định hồ sơ đợt 1 thành công, hóa đơn chuyển tiền quốc tế (SWIFT / Flywire) chính thức của trường sẽ được gửi qua email của bạn."}, "zh": {"brand_badge": "(株)SA SOLUTION · 官方留学申请材料提交平台", "header_title": "韩国留学 · 在线材料提交系统", "header_desc": "专为国际留学生及海外合作中介机构设立的官方入学与签证材料在线递交平台", "step_nav_1": "1. 个人基本信息", "step_nav_2": "2. 身份与学历材料", "step_nav_3": "3. 财务与签证材料", "step_nav_4": "4. 确认与正式提交", "step1_title": "第一步 · 申请人基本信息", "step1_desc": "请确保所填信息与护照上的信息完全一致。", "label_fullname": "英文姓名 (同护照) *", "placeholder_fullname": "例如: ZHANG WEI", "label_nationality": "国籍 *", "label_dob": "出生日期 *", "label_gender": "性别 *", "opt_select_gender": "选择性别", "opt_male": "男 (Male)", "opt_female": "女 (Female)", "label_passport": "护照号码 *", "placeholder_passport": "例如: E12345678", "label_target_univ": "申请韩国大学 *", "label_intake": "拟入学学期 *", "label_program": "申请课程类型 *", "label_agency": "海外合作机构名称", "placeholder_agency": "例如: 北京国际教育 (个人申请请留空)", "label_contact": "联系方式 (邮箱及微信/电话) *", "placeholder_contact": "例如: student@qq.com / +86 138 0000 0000", "btn_next_academic": "下一步: 上传身份与学历材料 →", "step2_title": "第二步 · 身份与学历证明材料", "step2_desc": "请上传清晰的高清PDF或JPG扫描件。", "doc_passport_title": "1. 护照个人信息页扫描件 *", "doc_passport_desc": "护照有效期需在1年以上。签名栏必须有本人亲笔签名。", "doc_photo_title": "2. 白底签证证件照 *", "doc_photo_desc": "白底免冠彩照，近3个月内拍摄，标准尺寸3.5cm x 4.5cm。", "doc_family_title": "3. 亲属关系证明 (户口本/出生证明公证件) *", "doc_family_desc": "政府出具的全家户口本或亲属关系证明公证书（附英文或韩文翻译公证）。", "doc_grad_title": "4. 最终学历毕业证书 (高中/大学) *", "doc_grad_desc": "必须附有韩国领事认证（双认证）或海牙认证（Apostille）贴纸。", "doc_trans_title": "5. 全学年官方成绩单 *", "doc_trans_desc": "包含所有学年成绩，附英文翻译公证及领事认证/海牙认证。", "doc_topik_title": "6. TOPIK韩语等级成绩单 (语学堂D-4选填)", "doc_topik_desc": "申请D-2学位课程必须提交TOPIK 3级以上或同等雅思/托福成绩。", "btn_prev": "← 上一步", "btn_next_financial": "下一步: 上传财务与签证材料 →", "step3_title": "第三步 · 财务与签证材料", "step3_desc": "依据韩国法务部出入境管理厅严格规定，请提交最新合规的资产证明。", "doc_bank_title": "7. 银行存款余额证明书 *", "doc_bank_desc": "D-4语言研修: 至少1万美元 / D-2学位课程: 至少2000万韩元。开具日期须在30天以内。", "doc_income_title": "8. 父母(担保人)在职证明及收入证明 *", "doc_income_desc": "个人所得税完税证明、在职证明（个体工商户请附营业执照公证件）。", "doc_sop_title": "9. 学习计划书与自我介绍 (SOP) *", "doc_sop_desc": "用韩语或英语书写。文末必须有申请人亲笔签名并注明日期。", "doc_tb_title": "10. 结核检查报告 (胸部X光) *", "doc_tb_desc": "须在韩国大使馆指定体检机构进行胸透检查，结果须为正常。", "btn_next_review": "下一步: 最终核对与提交 →", "step4_title": "第四步 · 最终核对与提交材料", "step4_desc": "请仔细核对所填信息与材料，并签署防伪诚信声明。", "summary_title": "申请信息汇总确认", "sum_name": "英文姓名", "sum_passport": "护照号码", "sum_univ": "目标大学", "sum_program": "申请课程", "sum_agency": "合作机构", "sum_contact": "联系方式", "legal_title": "材料真实性声明与法律责任承诺", "legal_text": "本人郑重承诺：所填报信息及上传之全部材料均真实、完整、有效，绝无伪造变造。本人清楚知悉，提交虚假材料将导致立即取消录取、拒签遣返，并承担韩国出入境管理法规定的法律责任。", "legal_checkbox": "本人已完整阅读并完全同意上述承诺内容。", "btn_submit": "🚀 正式提交申请材料", "btn_uploading": "⏳ 正在安全加密上传至 SA SOLUTION 云端存储... 请稍候。", "success_title": "材料提交成功！", "success_app_id_label": "官方申请编号:", "success_univ_label": "申请大学:", "success_desc": "您的材料已被安全加密并自动归档至 SA SOLUTION 中央云端。我们的资深招生团队正展开第一轮初审。", "next_steps_title": "接下来的流程：", "next_step_1": "1. <strong>材料第一轮初审 (24~48小时内)：</strong> 严格审核领事认证、银行存款证明时效等关键要素。", "next_step_2": "2. <strong>补正通知：</strong> 若有任何需补充材料，系统将第一时间向您及合作机构发送英文/中文指导邮件。", "next_step_3": "3. <strong>递交大学正式录取：</strong> 审核通过后将即刻送达目标大学招办，推进标准入学许可书(CoA)签发。", "btn_print": "打印 / 保存确认单", "btn_submit_another": "提交其他学生申请", "choose_file": "选择文件", "no_file": "未选择文件", "opt_intake_spring": "2027年春季学期 (3月入学)", "opt_intake_summer": "2027年夏季学期 (6月开班 - 语学堂)", "opt_intake_fall": "2027年秋季学期 (9月入学)", "opt_intake_winter": "2027年冬季学期 (12月开班 - 语学堂)", "opt_prog_d4": "D-4 韩国语研修课程 (语言研修)", "opt_prog_d2_undergrad": "D-2 正规本科学位 (新入/插班)", "opt_prog_d2_grad": "D-2 研究生硕博课程", "hint_agency": "如有合作中介机构请填写", "header_check_status": "查询申请材料及审核进度", "fee_section_title": "缴纳入学申请费及材料初审公证费", "fee_status_pending": "● 待支付 (Pending)", "fee_status_completed": "● 支付完成 (Completed)", "fee_desc": "材料已安全保存！您可立即使用境外信用卡支付，或在48小时内通过专属链接随时完成支付。", "fee_item_label": "支付项目:", "fee_item_name": "国际留学生正式申请及材料初审费", "fee_amount_label": "应付金额:", "btn_pay_now": "💳 立即使用国际卡支付 (Visa / Master / 银联UnionPay)", "btn_copy_pay_link": "🔗 稍后支付 (复制专属支付链接)", "btn_check_status_shortcut": "🔍 查询申请进度", "fee_paid_title": "报名费支付成功！", "modal_lookup_title": "查询申请进度与材料审核", "modal_lookup_desc": "输入申请编号和护照号即可查询第一轮材料审核状态及大学移交进展。", "modal_app_id_label": "申请编号 (Application ID) *", "modal_passport_label": "护照号码 (Passport No) *", "btn_lookup": "查询", "link_copied_alert": "支付链接已复制到剪贴板！随时可通过此链接完成支付。", "univ_pay_title": "直接汇入韩国大学官方招生处账户指南", "univ_pay_badge": "● 大学直缴原则", "univ_pay_desc": "根据韩国教育部国际留学生管理规定，入学报名费及学费必须以学生本人名义直接汇入所申请大学的官方账户。（严禁中介代收代缴）", "univ_pay_inst_label": "收款机构:", "univ_pay_amount_label": "官方报名费:", "univ_pay_notice": "※ SA SOLUTION第一轮材料审核合格后，将第一时间向学生及合作机构发送大学官方国际汇款账单(SWIFT / Flywire / 虚拟账号)。"}, "uz": {"brand_badge": "SA SOLUTION MCHJ · RASMIY HUJJAT TOPSHIRISH PORTALI", "header_title": "Janubiy Koreyada Ta'lim · Hujjat Topshirish", "header_desc": "Xalqaro talabalar va xorijdagi hamkor agentliklar uchun Janubiy Koreya universitetlariga rasmiy ariza topshirish portali", "step_nav_1": "1. Shaxsiy ma'lumot", "step_nav_2": "2. Shaxs & Ta'lim", "step_nav_3": "3. Moliya & Viza", "step_nav_4": "4. Tekshirish & Yuborish", "step1_title": "1-Bosqich · Ariza beruvchining shaxsiy ma'lumotlari", "step1_desc": "Iltimos, ma'lumotlarni xorijiy pasportingizdagidek to'g'ri kiriting.", "label_fullname": "To'liq ism-familiya (Pasport bo'yicha inglizcha) *", "placeholder_fullname": "Masalan: KARIMOV ANVAR", "label_nationality": "Fuqaroligi *", "label_dob": "Tug'ilgan sana *", "label_gender": "Jinsi *", "opt_select_gender": "Jinsni tanlang", "opt_male": "Erkak (Male)", "opt_female": "Ayol (Female)", "label_passport": "Xorijiy pasport raqami *", "placeholder_passport": "Masalan: FA1234567", "label_target_univ": "Janubiy Koreyadagi tanlangan universitet *", "label_intake": "Qabul semestri *", "label_program": "O'quv yo'nalishi / Viza turi *", "label_agency": "Hamkor agentlik nomi", "placeholder_agency": "Masalan: Toshkent Edu (Mustaqil topshirilsa bo'sh qoldiring)", "label_contact": "Aloqa ma'lumotlari (Email va Telegram/Telefon) *", "placeholder_contact": "Masalan: student@gmail.com / +998 90 123 4567", "btn_next_academic": "Keyingisi: Ta'lim hujjatlarini yuklash →", "step2_title": "2-Bosqich · Shaxs va Ta'lim hujjatlari", "step2_desc": "Hujjatlarni aniq va sifatli PDF yoki JPG formatida yuklang.", "doc_passport_title": "1. Xorijiy pasport nusxasi *", "doc_passport_desc": "Pasport amal qilish muddati kamida 1 yil bo'lishi va imzo qo'yilgan bo'lishi shart.", "doc_photo_title": "2. 3.5x4.5 Oq fonli rasm *", "doc_photo_desc": "Oq fonda, oxirgi 3 oy ichida olingan sifatli rasm.", "doc_family_title": "3. Tug'ilganlik haqida guvohnoma (Metrika) *", "doc_family_desc": "Notarial tasdiqlangan va ingliz/koreys tiliga tarjima qilingan nusxasi.", "doc_grad_title": "4. Maktab attestati yoki Diplom *", "doc_grad_desc": "Apostil (Apostille) muhri yoki Koreya Konsullik tasdig'i bo'lishi shart.", "doc_trans_title": "5. Baholar tabeli yoki Baholar ilovasi *", "doc_trans_desc": "Barcha yillik baholar, notarial inglizcha tarjima va Apostil muhri bilan.", "doc_topik_title": "6. TOPIK yoki Ingliz tili sertifikati (Ixtiyoriy)", "doc_topik_desc": "D-2 bakalavr/magistratura uchun TOPIK 3+ yoki IELTS talab qilinadi.", "btn_prev": "← Orqaga", "btn_next_financial": "Keyingisi: Moliyaviy va viza hujjatlari →", "step3_title": "3-Bosqich · Moliyaviy va Viza hujjatlari", "step3_desc": "Koreya Immigratsiya xizmati talabiga binoan eng so'nggi moliyaviy hujjatlar kerak.", "doc_bank_title": "7. Bank hisobidan ma'lumotnoma (Spravka) *", "doc_bank_desc": "D-4 til kursi: Kamida $10,000 / D-2 daraja: 20,000,000 KRW. Oxirgi 30 kun ichida olingan.", "doc_income_title": "8. Ota-onaning ish joyi va daromad ma'lumotnomasi *", "doc_income_desc": "Ish joyidan ma'lumotnoma, yillik daromad va soliq to'lovlari qog'ozi.", "doc_sop_title": "9. O'qish rejasi va Maqsad xati (Study Plan) *", "doc_sop_desc": "Ingliz yoki koreys tilida yozilgan. Talabaning shaxsiy imzosi va sana bo'lishi shart.", "doc_tb_title": "10. Sil kasalligi (O'pka rentgen) tekshiruvi *", "doc_tb_desc": "Elchixona tomonidan belgilangan klinikadan olingan ma'lumotnoma.", "btn_next_review": "Keyingisi: Tekshirish va Ariza topshirish →", "step4_title": "4-Bosqich · Yakuniy tekshirish va Topshirish", "step4_desc": "Ma'lumotlaringizni tekshiring va hujjatlarning haqqoniyligini tasdiqlang.", "summary_title": "Ariza ma'lumotlari xulosasi", "sum_name": "Ism-familiya", "sum_passport": "Pasport raqami", "sum_univ": "Universitet", "sum_program": "Yo'nalish", "sum_agency": "Agentlik", "sum_contact": "Aloqa", "legal_title": "HUJJATLARNING TO'G'RILIGI VA JAVOBGARLIK MAJBURIYATI", "legal_text": "Men barcha taqdim etilgan ma'lumot va hujjatlar to'g'ri, to'liq va soxta emasligini tasdiqlayman. Soxta hujjat taqdim etish Janubiy Koreya Immigratsiya qonuniga binoan o'qishdan chetlatish, vizani bekor qilish va deportatsiyaga olib kelishini bilaman.", "legal_checkbox": "Men yuqoridagi bayonotni o'qib chiqdim va to'liq roziman.", "btn_submit": "🚀 Rasmiy Arizani Topshirish", "btn_uploading": "⏳ SA Solution Cloud Drive tizimiga yuklanmoqda... Iltimos kuting.", "success_title": "Arizangiz Muvaffaqiyatli Qabul Qilindi!", "success_app_id_label": "Rasmiy ariza raqami:", "success_univ_label": "Tanlangan universitet:", "success_desc": "Hujjatlaringiz xavfsiz shifrlanib, SA SOLUTION markaziy tizimiga yo'naltirildi. Bizning mutaxassislarimiz dastlabki tekshiruvni boshlashdi.", "next_steps_title": "Keyingi bosqichlar qanday bo'ladi?", "next_step_1": "1. <strong>Dastlabki tekshiruv (24-48 soat):</strong> Apostil muhrlari va bank hisobining to'g'riligi tekshiriladi.", "next_step_2": "2. <strong>Xabar berish:</strong> Agar biron hujjatda kamchilik bo'lsa, sizga va agentligingizga email orqali tuzatish ko'rsatmasi yuboriladi.", "next_step_3": "3. <strong>Universitetga topshirish:</strong> Hujjatlar to'liq bo'lgach, universitetga rasmiy taklifnoma (CoA) chiqarish uchun topshiriladi.", "btn_print": "Kvitansiyani chop etish", "btn_submit_another": "Boshqa talaba arizasini topshirish", "choose_file": "Faylni tanlang", "no_file": "Fayl tanlanmadi", "opt_intake_spring": "2027 Bahorgi semestr (Mart oyi qabuli)", "opt_intake_summer": "2027 Yozgi semestr (Iyun oyi - Til kursi)", "opt_intake_fall": "2027 Kuzgi semestr (Sentabr oyi qabuli)", "opt_intake_winter": "2027 Qishki semestr (Dekabr oyi - Til kursi)", "opt_prog_d4": "D-4 Koreys tili kursi (Til o'rganish)", "opt_prog_d2_undergrad": "D-2 Bakalavr darajasi (1-kurs / O'qishni ko'chirish)", "opt_prog_d2_grad": "D-2 Magistratura / Doktorantura", "hint_agency": "Hamkor agentlik nomi (agar mavjud bo'lsa)", "header_check_status": "Arizani Tekshirish", "fee_section_title": "Qabul arizasi va Hujjatlarni tekshirish to'lovi", "fee_status_pending": "● To'lov kutilmoqda (Pending)", "fee_status_completed": "● To'lov amalga oshirildi (Completed)", "fee_desc": "Hujjatlaringiz xavfsiz saqlandi! To'lovni xalqaro karta orqali hoziroq yoki 48 soat ichida shaxsiy havola orqali to'lashingiz mumkin.", "fee_item_label": "To'lov turi:", "fee_item_name": "Xalqaro talabalar arizasi va tekshirish to'lovi", "fee_amount_label": "To'lov summasi:", "btn_pay_now": "💳 Xalqaro karta bilan hozir to'lash (Visa / Master)", "btn_copy_pay_link": "🔗 Keyinroq to'lash (To'lov havolasidan nusxa olish)", "btn_check_status_shortcut": "🔍 Ariza holatini tekshirish", "fee_paid_title": "To'lov muvaffaqiyatli amalga oshirildi!", "modal_lookup_title": "Ariza Holatini Tekshirish", "modal_lookup_desc": "Ariza raqami va Pasport raqamingizni kiritib tekshiring.", "modal_app_id_label": "Ariza raqami (Application ID) *", "modal_passport_label": "Pasport raqami (Passport No) *", "btn_lookup": "Tekshirish", "link_copied_alert": "To'lov havolasi nusxalandi! Ushbu havola orqali istalgan vaqtda to'lashingiz mumkin.", "univ_pay_title": "Universitet Hisobiga To'g'ridan-To'g'ri To'lash", "univ_pay_badge": "● Faqat universitet hisobiga", "univ_pay_desc": "Koreya Ta'lim vazirligi qoidalariga muvofiq, ariza to'lovi va kontrakt summasi talaba nomidan to'g'ridan-to'g'ri universitet hisobiga o'tkazilishi shart.", "univ_pay_inst_label": "Qabul qiluvchi:", "univ_pay_amount_label": "Ariza to'lovi:", "univ_pay_notice": "※ Hujjatlar SA SOLUTION tomonidan tekshirilib tasdiqlangach, universitetning rasmiy xalqaro to'lov hisobi (SWIFT) emailingizga yuboriladi."}, "ru": {"brand_badge": "ООО SA SOLUTION · ОФИЦИАЛЬНЫЙ ПОРТАЛ ПОДАЧИ ДОКУМЕНТОВ", "header_title": "Обучение в Корее · Онлайн подача документов", "header_desc": "Официальный портал подачи документов на поступление и оформление визы для иностранных студентов и зарубежных агентств", "step_nav_1": "1. Личные данные", "step_nav_2": "2. Личность и Образование", "step_nav_3": "3. Финансы и Виза", "step_nav_4": "4. Проверка и Отправка", "step1_title": "Шаг 1 · Персональные данные абитуриента", "step1_desc": "Пожалуйста, указывайте данные строго в соответствии с заграничным паспортом.", "label_fullname": "ФИО (на латинице, как в загранпаспорте) *", "placeholder_fullname": "Например: IVANOV ALEKSEI", "label_nationality": "Гражданство *", "label_dob": "Дата рождения *", "label_gender": "Пол *", "opt_select_gender": "Выберите пол", "opt_male": "Мужской (Male)", "opt_female": "Женский (Female)", "label_passport": "Номер загранпаспорта *", "placeholder_passport": "Например: 751234567", "label_target_univ": "Выбранный университет в Корее *", "label_intake": "Планируемый семестр поступления *", "label_program": "Программа обучения / Тип визы *", "label_agency": "Название зарубежного агентства-партнера", "placeholder_agency": "Например: Tashkent EduTech (Оставьте пустым при самостоятельной подаче)", "label_contact": "Контактные данные (Email и Telegram/Телефон) *", "placeholder_contact": "Например: student@gmail.com / +7 999 123 4567", "btn_next_academic": "Далее: Загрузка документов об образовании →", "step2_title": "Шаг 2 · Документы, удостоверяющие личность и образование", "step2_desc": "Загрузите четкие цветные скан-копии в формате PDF или JPG.", "doc_passport_title": "1. Скан страницы загранпаспорта с фото *", "doc_passport_desc": "Срок действия паспорта не менее 1 года. Личная подпись в графе подписи обязательна.", "doc_photo_title": "2. Фотография на белом фоне (3.5x4.5) *", "doc_photo_desc": "Белый фон, сделана в течение последних 3 месяцев, стандарт 3.5x4.5 см.", "doc_family_title": "3. Свидетельство о рождении *", "doc_family_desc": "Оригинал с нотариально заверенным переводом на английский или корейский язык.", "doc_grad_title": "4. Аттестат о среднем образовании или Диплом *", "doc_grad_desc": "Обязательно наличие штампа Апостиль (Apostille) или консульской легализации Кореи.", "doc_trans_title": "5. Приложение с оценками (Табель / Транскрипт) *", "doc_trans_desc": "Оценки за все годы обучения с нотариальным переводом и штампом Апостиль.", "doc_topik_title": "6. Сертификат TOPIK или IELTS/TOEFL (По желанию для D-4)", "doc_topik_desc": "Обязательно для программ бакалавриата/магистратуры D-2 (TOPIK 3+ или IELTS).", "btn_prev": "← Назад", "btn_next_financial": "Далее: Финансовые и визовые документы →", "step3_title": "Шаг 3 · Финансовые и визовые документы", "step3_desc": "В соответствии с требованиями Иммиграционной службы Кореи необходимы актуальные справки.", "doc_bank_title": "7. Справка о состоянии банковского счета (Остаток) *", "doc_bank_desc": "D-4: Минимум $10,000 / D-2: Минимум 20,000,000 KRW. Выдана не ранее чем за 30 дней.", "doc_income_title": "8. Справка с места работы и о доходах спонсора (родителей) *", "doc_income_desc": "Справка с места работы, справка 2-НДФЛ о годовом доходе, свидетельство ИП.", "doc_sop_title": "9. Учебный план и мотивационное письмо (SOP) *", "doc_sop_desc": "На английском или корейском языке. Обязательна личная подпись студента и дата.", "doc_tb_title": "10. Справка об отсутствии туберкулеза (Флюорография) *", "doc_tb_desc": "Из клиники, аккредитованной посольством Кореи. Результат должен быть отрицательным.", "btn_next_review": "Далее: Финальная проверка и отправка →", "step4_title": "Шаг 4 · Финальная проверка и отправка", "step4_desc": "Проверьте введенные данные и подтвердите подлинность документов.", "summary_title": "Сводка заявления", "sum_name": "ФИО абитуриента", "sum_passport": "Номер паспорта", "sum_univ": "Университет", "sum_program": "Программа", "sum_agency": "Агентство", "sum_contact": "Контакты", "legal_title": "ЗАЯВЛЕНИЕ О ПОДЛИННОСТИ И ЮРИДИЧЕСКАЯ ОТВЕТСТВЕННОСТЬ", "legal_text": "Настоящим я подтверждаю, что вся предоставленная информация и документы являются подлинными и достоверными. Я осознаю, что предоставление поддельных документов влечет отказ в приеме, аннулирование визы и ответственность в соответствии с Законом об иммиграционном контроле Республики Корея.", "legal_checkbox": "Я прочитал(-а) и полностью согласен(-на) с данным заявлением.", "btn_submit": "🚀 Отправить официальное заявление", "btn_uploading": "⏳ Идет безопасная загрузка в Cloud Drive SA Solution... Пожалуйста, подождите.", "success_title": "Заявление успешно отправлено!", "success_app_id_label": "Официальный номер заявки:", "success_univ_label": "Университет:", "success_desc": "Ваши документы зашифрованы и направлены в центральное хранилище SA SOLUTION. Наша команда приступила к первичному рассмотрению.", "next_steps_title": "Что происходит дальше?", "next_step_1": "1. <strong>Первичная проверка документов (24-48 ч):</strong> Эксперты проверяют апостили и банковские справки.", "next_step_2": "2. <strong>Уведомление о дополнениях:</strong> Если требуется замена или исправление, вы и агентство получите подробное письмо на email.", "next_step_3": "3. <strong>Подача в приемную комиссию:</strong> После успешной проверки документы передаются в университет для выдачи сертификата о зачислении (CoA).", "btn_print": "Распечатать квитанцию", "btn_submit_another": "Подать еще одно заявление", "choose_file": "Выберите файл", "no_file": "Файл не выбран", "opt_intake_spring": "Весенний семестр 2027 (Начало в марте)", "opt_intake_summer": "Летний семестр 2027 (Начало в июне - языковые курсы)", "opt_intake_fall": "Осенний семестр 2027 (Начало в сентябре)", "opt_intake_winter": "Зимний семестр 2027 (Начало в декабре - языковые курсы)", "opt_prog_d4": "D-4 Курсы корейского языка", "opt_prog_d2_undergrad": "D-2 Программа бакалавриата (1 курс / Перевод)", "opt_prog_d2_grad": "D-2 Магистратура / Аспирантура", "hint_agency": "Название агентства-партнера (при наличии)", "header_check_status": "Оплата сбора / Проверка статуса", "fee_section_title": "Оплата регистрационного сбора и проверки документов", "fee_status_pending": "● Ожидает оплаты (Pending)", "fee_status_completed": "● Оплачено (Completed)", "fee_desc": "Документы успешно сохранены! Вы можете оплатить сбор прямо сейчас международной картой или позже в течение 48 часов по персональной ссылке.", "fee_item_label": "Назначение платежа:", "fee_item_name": "Регистрационный сбор и первичная экспертиза документов", "fee_amount_label": "Сумма к оплате:", "btn_pay_now": "💳 Оплатить сбор картой (Visa / Master / JCB / UnionPay)", "btn_copy_pay_link": "🔗 Оплатить позже (Скопировать ссылку на оплату)", "btn_check_status_shortcut": "🔍 Проверить статус заявления", "fee_paid_title": "Оплата успешно завершена!", "modal_lookup_title": "Проверка заявления и Оплата сбора", "modal_lookup_desc": "Введите номер заявки (например: SA27-D4-001) и номер паспорта.", "modal_app_id_label": "Номер заявки (Application ID) *", "modal_passport_label": "Номер паспорта (Passport No) *", "btn_lookup": "Найти", "link_copied_alert": "Ссылка на оплату скопирована в буфер обмена!"}, "mn": {"brand_badge": "SA SOLUTION ХХК · АЛБАН ЁСНЫ БИЧИГ БАРИМТ ХҮЛЭЭН АВАХ ПОРТАЛ", "header_title": "БНСУ-д Сурралцах · Цахим Бичиг Баримт Илгээх", "header_desc": "Олон улсын оюутан залуус болон гадаадын зуучлагч байгууллагуудад зориулсан виз, сургуулийн бичиг баримт хүлээн авах албан ёсны систем", "step_nav_1": "1. Хувийн мэдээлэл", "step_nav_2": "2. Бичиг баримт & Боловсрол", "step_nav_3": "3. Санхүү & Виз", "step_nav_4": "4. Шалгах & Илгээх", "step1_title": "1-р Алхам · Өргөдөл гаргагчийн хувийн мэдээлэл", "step1_desc": "Гадаад паспорт дээрх мэдээлэлтэйгээ яг таг тохирч байгаа эсэхийг шалгана уу.", "label_fullname": "Овог нэр (Паспорт дээрх англи галигаар) *", "placeholder_fullname": "Жишээ: BATBAYAR ANAND", "label_nationality": "Иргэншил *", "label_dob": "Төрсөн огноо *", "label_gender": "Хүйс *", "opt_select_gender": "Хүйс сонгох", "opt_male": "Эрэгтэй (Male)", "opt_female": "Эмэгтэй (Female)", "label_passport": "Гадаад паспортын дугаар *", "placeholder_passport": "Жишээ: E12345678", "label_target_univ": "БНСУ-д суралцах их дээд сургууль *", "label_intake": "Элсэх улирал *", "label_program": "Хөтөлбөрийн төрөл / Визний ангилал *", "label_agency": "Зуучлагч агентлагийн нэр", "placeholder_agency": "Жишээ: Ulaanbaatar Edu (Хувиараа өгч байгаа бол хоосон үлдээнэ үү)", "label_contact": "Холбоо барих мэдээлэл (Имэйл болон Утас) *", "placeholder_contact": "Жишээ: student@gmail.com / +976 9911 2233", "btn_next_academic": "Дараах: Боловсролын бичиг баримт оруулах →", "step2_title": "2-р Алхам · Бичиг баримт болон Боловсролын лавлагаа", "step2_desc": "Өнгөт, тод харагдахуйц PDF эсвэл JPG форматаар оруулна уу.", "doc_passport_title": "1. Гадаад паспортын хуулбар *", "doc_passport_desc": "Хүчинтэй хугацаа 1 жилээс дээш байх шаардлагатай. Гарын үсэг зурсан байх ёстой.", "doc_photo_title": "2. Цээж зураг (3.5x4.5 цагаан дэвсгэртэй) *", "doc_photo_desc": "Сүүлийн 3 сарын дотор авхуулсан, цагаан дэвсгэртэй стандарт зураг.", "doc_family_title": "3. Төрсний гэрчилгээ (Орчуулгатай) *", "doc_family_desc": "Англи эсвэл солонгос хэл дээрх нотариатаар баталгаажуулсан хуулбар.", "doc_grad_title": "4. Бүрэн дунд боловсролын гэрчилгээ эсвэл Диплом *", "doc_grad_desc": "Апостиль (Apostille) эсвэл БНСУ-ын Элчин сайдын яамны баталгаажуулалттай байх шаардлагатай.", "doc_trans_title": "5. Дүнгийн жагсаалт (Бүх жилийн дүн) *", "doc_trans_desc": "Бүх жилийн дүн, нотариатын англи орчуулга болон Апостиль тамгатай байх.", "doc_topik_title": "6. TOPIK эсвэл Англи хэлний онооны батламж (Сонгох)", "doc_topik_desc": "D-2 бакалавр/магистрт TOPIK 3-аас дээш эсвэл IELTS/TOEFL шаардлагатай.", "btn_prev": "← Буцах", "btn_next_financial": "Дараах: Санхүү болон визний баримт оруулах →", "step3_title": "3-р Алхам · Санхүү болон Визний бичиг баримт", "step3_desc": "БНСУ-ын Хууль зүйн яамны дүрмийн дагуу хамгийн сүүлийн үеийн баталгааг шаардана.", "doc_bank_title": "7. Банкны дансны үлдэгдлийн тодорхойлолт *", "doc_bank_desc": "D-4: Дор хаяж $10,000 / D-2: Дор хаяж 20,000,000 KRW. Сүүлийн 30 хоногт олгогдсон байх.", "doc_income_title": "8. Эцэг эхийн ажлын газар болон орлогын тодорхойлолт *", "doc_income_desc": "Ажлын газрын тодорхойлолт, нийгмийн даатгалын лавлагаа эсвэл татварын тайлан.", "doc_sop_title": "9. Сурралцах төлөвлөгөө болон Өөрийн танилцуулга (SOP) *", "doc_sop_desc": "Солонгос эсвэл англи хэлээр бичсэн байх. Оюутны гарын үсэг, огноо заавал байх ёстой.", "doc_tb_title": "10. Сүрьеэгийн шинжилгээний хариу (Цээжний рентген) *", "doc_tb_desc": "БНСУ-ын ЭСЯ-наас заасан эмнэлгийн тодорхойлолт.", "btn_next_review": "Дараах: Хянах болон Илгээх →", "step4_title": "4-р Алхам · Эцсийн шалгалт болон Илгээх", "step4_desc": "Мэдээллээ сайтар шалгаж, бичиг баримтын үнэн зөвийг баталгаажуулна уу.", "summary_title": "Өргөдлийн хураангуй", "sum_name": "Нэр (Англи)", "sum_passport": "Паспорт дугаар", "sum_univ": "Сонгосон сургууль", "sum_program": "Хөтөлбөр", "sum_agency": "Зуучлагч", "sum_contact": "Холбоо барих", "legal_title": "БИЧИГ БАРИМТЫН ҮНЭН ЗӨВИЙГ БАТЛАХ МЭДЭГДЭЛ", "legal_text": "Миний бие илгээсэн бүх мэдээлэл болон бичиг баримт үнэн зөв болохыг хариуцлагатайгаар мэдэгдэж байна. Хэрэв хуурамч бичиг баримт өгсөн тохиолдолд сургуулиас хасагдах, виз цуцлагдах болон БНСУ-ын хуулийн дагуу хариуцлага хүлээхийг бүрэн ойлгож байна.", "legal_checkbox": "Дээрх мэдэгдлийг бүрэн уншиж танилцсан бөгөөд зөвшөөрч байна.", "btn_submit": "🚀 Албан Ёсны Өргөдөл Илгээх", "btn_uploading": "⏳ SA Solution Cloud Drive систем рүү илгээж байна... Түр хүлээнэ үү.", "success_title": "Өргөдөл Амжилттай Илгээгдлээ!", "success_app_id_label": "Өргөдлийн бүртгэлийн дугаар:", "success_univ_label": "Сонгосон сургууль:", "success_desc": "Таны бичиг баримтыг SA SOLUTION-ийн төв системд амжилттай хадгаллаа. Манай мэргэжилтнүүд анхан шатны шалгалтыг эхлүүлж байна.", "next_steps_title": "Дараагийн алхамууд:", "next_step_1": "1. <strong>Анхан шатны шалгалт (24-48 цагт):</strong> Апостиль тамга, банкны үлдэгдлийг шалгана.", "next_step_2": "2. <strong>Нэмэлт мэдээлэл өгөх:</strong> Бичиг баримтад засвар орох шаардлагатай бол таны болон агентлагийн имэйл рүү заавар очих болно.", "next_step_3": "3. <strong>Сургуульд хүргүүлэх:</strong> Бүрэн шалгагдсан бичиг баримтыг сургууль руу илгээж, урилга (CoA) авах ажил эхэлнэ.", "btn_print": "Баримтыг хэвлэх", "btn_submit_another": "Өөр оюутны өргөдөл илгээх", "choose_file": "Файл сонгох", "no_file": "Файл сонгоогүй", "opt_intake_spring": "2027 оны Хаврын улирал (3-р сард элсэх)", "opt_intake_summer": "2027 оны Зуны улирал (6-р сар - Хэлний бэлтгэл)", "opt_intake_fall": "2027 оны Намрын улирал (9-р сард элсэх)", "opt_intake_winter": "2027 оны Өвлийн улирал (12-р сар - Хэлний бэлтгэл)", "opt_prog_d4": "D-4 Солонгос хэлний бэлтгэл сургалт", "opt_prog_d2_undergrad": "D-2 Бакалаврын хөтөлбөр (Шинээр элсэх / Шилжих)", "opt_prog_d2_grad": "D-2 Магистр / Докторын хөтөлбөр", "hint_agency": "Зуучлагч байгууллагын нэр (байгаа бол)", "header_check_status": "Төлбөр төлөх / Өргөдөл шалгах", "fee_section_title": "Бүртгэлийн хураамж болон Шалгалтын төлбөр", "fee_status_pending": "● Төлбөр хүлээгдэж байна (Pending)", "fee_status_completed": "● Төлөгдсөн (Completed)", "fee_desc": "Бичиг баримт найдвартай хадгалагдлаа! Төлбөрөө олон улсын картаар яг одоо төлөх эсвэл 48 цагийн дотор тусгай холбоосоор төлж болно.", "fee_item_label": "Төлбөрийн утга:", "fee_item_name": "Олон улсын оюутны бүртгэлийн хураамж", "fee_amount_label": "Төлөх дүн:", "btn_pay_now": "💳 Олон улсын картаар төлөх (Visa / Master)", "btn_copy_pay_link": "🔗 Дараа төлөх (Холбоосыг хуулах)", "btn_check_status_shortcut": "🔍 Өргөдлийн явц шалгах", "fee_paid_title": "Төлбөр амжилттай хийгдлээ!", "modal_lookup_title": "Өргөдөл шалгах & Төлбөр төлөх", "modal_lookup_desc": "Бүртгэлийн дугаар болон гадаад паспортын дугаараа оруулна уу.", "modal_app_id_label": "Бүртгэлийн дугаар *", "modal_passport_label": "Паспортын дугаар *", "btn_lookup": "Шалгах", "link_copied_alert": "Төлбөрийн холбоос хуулагдлаа!"}};
+
+    // =========================================================================
+    // PERSONAL INFORMATION CONSENT (7 LANGUAGES, merged into I18N)
+    // =========================================================================
+    const PRIVACY_I18N = {
+    "ko": {
+        "privacy_title": "개인정보 수집·이용 동의 (필수)",
+        "privacy_intro": "아래 내용을 확인하신 후 동의해 주세요. 동의하지 않으면 서류 접수가 되지 않습니다.",
+        "privacy_label_controller": "수집 주체",
+        "privacy_val_controller": "(주)에스에이솔루션 (SA Solution Co., Ltd.)",
+        "privacy_label_items": "수집 항목",
+        "privacy_val_items": "성명·국적·생년월일·성별·여권 정보·연락처 등 인적사항, 학력 서류, 재정 증빙 서류, 비자 관련 서류",
+        "privacy_label_purpose": "이용 목적",
+        "privacy_val_purpose": "한국 대학 및 어학연수 입학 지원, 제출 서류 검수 및 해당 대학 입학처 전달",
+        "privacy_label_retention": "보유·이용 기간",
+        "privacy_val_retention": "입학 절차 완료 후 법령에서 정한 보관 기간까지 보관하며, 보관 기간이 끝나거나 삭제를 요청하시면 지체 없이 파기합니다.",
+        "privacy_label_refusal": "동의 거부 시",
+        "privacy_val_refusal": "동의를 거부하실 수 있으나, 이 경우 서류 접수와 입학 지원이 불가합니다.",
+        "privacy_checkbox": "위 개인정보 수집·이용에 동의합니다. (필수)",
+        "privacy_required_alert": "개인정보 수집·이용에 동의해 주세요. 동의하지 않으면 서류를 접수할 수 없습니다.",
+        "terms_required_alert": "서류 위변조 방지 서약에 동의해 주세요."
+    },
+    "en": {
+        "privacy_title": "Consent to the Collection and Use of Personal Information (Required)",
+        "privacy_intro": "Please review the details below and give your consent. Your application cannot be submitted without it.",
+        "privacy_label_controller": "Data Controller",
+        "privacy_val_controller": "SA Solution Co., Ltd. ((주)에스에이솔루션)",
+        "privacy_label_items": "Information Collected",
+        "privacy_val_items": "Personal details (name, nationality, date of birth, gender, passport information, contact details), academic records, financial documents, and visa-related documents",
+        "privacy_label_purpose": "Purpose of Use",
+        "privacy_val_purpose": "To apply for admission to Korean universities and language training programs, to review the submitted documents, and to forward them to the admissions office of the relevant university",
+        "privacy_label_retention": "Retention Period",
+        "privacy_val_retention": "Retained until the admission process is complete and for the period required by applicable law; destroyed without delay when that period ends or upon your request for deletion.",
+        "privacy_label_refusal": "If You Refuse",
+        "privacy_val_refusal": "You may refuse consent, but in that case we cannot accept your documents or process your application.",
+        "privacy_checkbox": "I agree to the collection and use of my personal information described above. (Required)",
+        "privacy_required_alert": "Please agree to the collection and use of your personal information. Without consent, the application cannot be submitted.",
+        "terms_required_alert": "Please agree to the document authenticity declaration before submitting."
+    },
+    "vi": {
+        "privacy_title": "Đồng ý thu thập và sử dụng thông tin cá nhân (Bắt buộc)",
+        "privacy_intro": "Vui lòng xem nội dung dưới đây và đồng ý. Nếu không đồng ý, hồ sơ sẽ không thể được nộp.",
+        "privacy_label_controller": "Đơn vị thu thập",
+        "privacy_val_controller": "Công ty CP SA Solution ((주)에스에이솔루션)",
+        "privacy_label_items": "Thông tin thu thập",
+        "privacy_val_items": "Thông tin cá nhân (họ tên, quốc tịch, ngày sinh, giới tính, thông tin hộ chiếu, thông tin liên hệ), hồ sơ học vấn, giấy tờ chứng minh tài chính và giấy tờ liên quan đến visa",
+        "privacy_label_purpose": "Mục đích sử dụng",
+        "privacy_val_purpose": "Đăng ký nhập học vào các trường đại học và chương trình du học tiếng Hàn, thẩm định hồ sơ đã nộp và chuyển đến phòng tuyển sinh của trường tương ứng",
+        "privacy_label_retention": "Thời gian lưu giữ",
+        "privacy_val_retention": "Lưu giữ đến khi hoàn tất thủ tục nhập học và trong thời hạn luật định; được hủy bỏ ngay khi hết thời hạn đó hoặc khi bạn yêu cầu xóa.",
+        "privacy_label_refusal": "Nếu bạn từ chối",
+        "privacy_val_refusal": "Bạn có thể từ chối đồng ý, nhưng khi đó chúng tôi không thể tiếp nhận hồ sơ và xử lý đơn đăng ký của bạn.",
+        "privacy_checkbox": "Tôi đồng ý với việc thu thập và sử dụng thông tin cá nhân nêu trên. (Bắt buộc)",
+        "privacy_required_alert": "Vui lòng đồng ý với việc thu thập và sử dụng thông tin cá nhân. Nếu không đồng ý, hồ sơ không thể được nộp.",
+        "terms_required_alert": "Vui lòng xác nhận cam kết trước khi nộp hồ sơ."
+    },
+    "zh": {
+        "privacy_title": "个人信息收集与使用同意（必选）",
+        "privacy_intro": "请确认以下内容并给予同意。若不同意，将无法提交申请材料。",
+        "privacy_label_controller": "收集主体",
+        "privacy_val_controller": "(株)SA SOLUTION（(주)에스에이솔루션）",
+        "privacy_label_items": "收集项目",
+        "privacy_val_items": "个人基本信息（姓名、国籍、出生日期、性别、护照信息、联系方式）、学历材料、财务证明材料及签证相关材料",
+        "privacy_label_purpose": "使用目的",
+        "privacy_val_purpose": "申请韩国大学及语学堂入学，审核所提交的材料并转交至相应大学招生处",
+        "privacy_label_retention": "保存及使用期限",
+        "privacy_val_retention": "保存至入学手续完成及法律规定的保存期限届满；期限届满或您要求删除时立即销毁。",
+        "privacy_label_refusal": "拒绝同意时",
+        "privacy_val_refusal": "您可以拒绝同意，但届时我们将无法受理您的材料及入学申请。",
+        "privacy_checkbox": "本人同意上述个人信息的收集与使用。（必选）",
+        "privacy_required_alert": "请同意个人信息的收集与使用。若不同意，将无法提交材料。",
+        "terms_required_alert": "请同意材料真实性承诺书。"
+    },
+    "uz": {
+        "privacy_title": "Shaxsiy ma'lumotlarni to'plash va foydalanishga rozilik (Majburiy)",
+        "privacy_intro": "Iltimos, quyidagi ma'lumotlar bilan tanishing va rozilik bering. Rozilik berilmasa, ariza topshirib bo'lmaydi.",
+        "privacy_label_controller": "Ma'lumotlarni to'plovchi",
+        "privacy_val_controller": "SA Solution MCHJ ((주)에스에이솔루션)",
+        "privacy_label_items": "To'planadigan ma'lumotlar",
+        "privacy_val_items": "Shaxsiy ma'lumotlar (ism-familiya, fuqaroligi, tug'ilgan sana, jinsi, pasport ma'lumotlari, aloqa ma'lumotlari), ta'lim hujjatlari, moliyaviy tasdiq hujjatlari va viza bilan bog'liq hujjatlar",
+        "privacy_label_purpose": "Foydalanish maqsadi",
+        "privacy_val_purpose": "Koreya universitetlari va til o'quv kurslariga qabul uchun ariza topshirish, yuborilgan hujjatlarni tekshirish va tegishli universitetning qabul bo'limiga yetkazish",
+        "privacy_label_retention": "Saqlash muddati",
+        "privacy_val_retention": "Qabul jarayoni tugagunga qadar va qonunda belgilangan muddat davomida saqlanadi; muddat tugagach yoki siz o'chirishni so'raganingizda darhol yo'q qilinadi.",
+        "privacy_label_refusal": "Rozilik bermasangiz",
+        "privacy_val_refusal": "Rozilik bermasligingiz mumkin, ammo bu holda hujjatlaringizni qabul qila olmaymiz va arizangizni ko'rib chiqa olmaymiz.",
+        "privacy_checkbox": "Yuqoridagi shaxsiy ma'lumotlarni to'plash va foydalanishga roziman. (Majburiy)",
+        "privacy_required_alert": "Iltimos, shaxsiy ma'lumotlarni to'plash va foydalanishga rozilik bering. Rozilik bo'lmasa, ariza topshirib bo'lmaydi.",
+        "terms_required_alert": "Iltimos, hujjatlar haqqoniyligi to'g'risidagi majburiyatga rozilik bering."
+    },
+    "ru": {
+        "privacy_title": "Согласие на сбор и использование персональных данных (обязательно)",
+        "privacy_intro": "Пожалуйста, ознакомьтесь с информацией ниже и дайте согласие. Без согласия подача документов невозможна.",
+        "privacy_label_controller": "Оператор данных",
+        "privacy_val_controller": "ООО SA SOLUTION ((주)에스에이솔루션)",
+        "privacy_label_items": "Собираемые данные",
+        "privacy_val_items": "Персональные данные (ФИО, гражданство, дата рождения, пол, паспортные данные, контактные данные), документы об образовании, финансовые документы и документы, связанные с визой",
+        "privacy_label_purpose": "Цель использования",
+        "privacy_val_purpose": "Подача заявлений на поступление в корейские университеты и на языковые программы, проверка представленных документов и передача их в приемную комиссию соответствующего университета",
+        "privacy_label_retention": "Срок хранения",
+        "privacy_val_retention": "Хранятся до завершения процедуры поступления и в течение срока, установленного законом; уничтожаются без промедления по истечении этого срока или по вашему запросу об удалении.",
+        "privacy_label_refusal": "При отказе от согласия",
+        "privacy_val_refusal": "Вы вправе отказаться от согласия, однако в этом случае мы не сможем принять ваши документы и обработать заявление.",
+        "privacy_checkbox": "Я согласен(-на) на сбор и использование указанных персональных данных. (Обязательно)",
+        "privacy_required_alert": "Пожалуйста, дайте согласие на сбор и использование персональных данных. Без согласия подача документов невозможна.",
+        "terms_required_alert": "Пожалуйста, подтвердите заявление о подлинности документов."
+    },
+    "mn": {
+        "privacy_title": "Хувийн мэдээлэл цуглуулах, ашиглахыг зөвшөөрөх (Заавал)",
+        "privacy_intro": "Доорх мэдээллийг уншиж танилцаад зөвшөөрлөө өгнө үү. Зөвшөөрөхгүй бол бичиг баримт илгээх боломжгүй.",
+        "privacy_label_controller": "Мэдээлэл цуглуулагч",
+        "privacy_val_controller": "SA SOLUTION ХХК ((주)에스에이솔루션)",
+        "privacy_label_items": "Цуглуулах мэдээлэл",
+        "privacy_val_items": "Хувийн мэдээлэл (овог нэр, иргэншил, төрсөн огноо, хүйс, паспортын мэдээлэл, холбоо барих мэдээлэл), боловсролын бичиг баримт, санхүүгийн баталгаа болон визний бичиг баримт",
+        "privacy_label_purpose": "Ашиглах зорилго",
+        "privacy_val_purpose": "БНСУ-ын их дээд сургууль, хэлний бэлтгэл хөтөлбөрт элсэх өргөдөл гаргах, ирүүлсэн бичиг баримтыг хянах, холбогдох сургуулийн элсэлтийн хэлтэст хүргэх",
+        "privacy_label_retention": "Хадгалах хугацаа",
+        "privacy_val_retention": "Элсэлтийн үйл явц дуустал болон хуульд заасан хугацаанд хадгална; хугацаа дуусах эсвэл та устгуулах хүсэлт гаргасан тохиолдолд нэн даруй устгана.",
+        "privacy_label_refusal": "Зөвшөөрөхгүй тохиолдолд",
+        "privacy_val_refusal": "Та зөвшөөрөхгүй байх боломжтой, гэхдээ энэ тохиолдолд бид таны бичиг баримтыг хүлээж авах, өргөдлийг боловсруулах боломжгүй.",
+        "privacy_checkbox": "Дээрх хувийн мэдээллийг цуглуулж, ашиглахыг зөвшөөрч байна. (Заавал)",
+        "privacy_required_alert": "Хувийн мэдээлэл цуглуулах, ашиглахыг зөвшөөрнө үү. Зөвшөөрөхгүй бол бичиг баримт илгээх боломжгүй.",
+        "terms_required_alert": "Бичиг баримтын үнэн зөвийг батлах мэдэгдлийг зөвшөөрнө үү."
+    }
+};
+
+    Object.keys(PRIVACY_I18N).forEach(function (langCode) {
+      if (!I18N[langCode]) return;
+      Object.keys(PRIVACY_I18N[langCode]).forEach(function (key) {
+        I18N[langCode][key] = PRIVACY_I18N[langCode][key];
+      });
+    });
+
+    let currentLang = 'ko'; // 기본값을 한국어로 설정
+
+    function changeLanguage(lang) {
+      if (!I18N[lang]) lang = 'ko';
+      currentLang = lang;
+      
+      const selectEl = document.getElementById('langSelect');
+      if (selectEl) selectEl.value = lang;
+
+      // 1. 텍스트 업데이트 (DOM 변경 먼저 실행하여 스토리지 에러 방지)
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[lang] && I18N[lang][key]) {
+          el.innerHTML = I18N[lang][key];
+        }
+      });
+
+      // 2. 플레이스홀더 업데이트
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (I18N[lang] && I18N[lang][key]) {
+          el.setAttribute('placeholder', I18N[lang][key]);
+        }
+      });
+
+      // 3. 파일 선택 라벨 업데이트
+      document.querySelectorAll('.file-name-display').forEach(el => {
+        if (!el.classList.contains('attached')) {
+          el.textContent = (I18N[lang] && I18N[lang].no_file) || '선택된 파일 없음';
+        }
+      });
+
+      // 4. 로컬 스토리지 안전 저장 (아이폰 로컬 파일 열람 시 SecurityError 예외 방지)
+      try {
+        localStorage.setItem('sa_portal_lang', lang);
+      } catch (err) {
+        // 로컬 샌드박스 환경 무시
+      }
+    }
+
+    function initLanguage() {
+      let lang = 'ko';
+      try {
+        // 0. Server-injected Apps Script query parameter (?lang=vi)
+        if (window.__GAS_PARAMS__ && window.__GAS_PARAMS__.lang && I18N[window.__GAS_PARAMS__.lang]) {
+          changeLanguage(window.__GAS_PARAMS__.lang);
+          return;
+        }
+        // 1. URL Query parameter (?lang=vi)
+        const params = new URLSearchParams(window.location.search);
+        const qLang = params.get('lang');
+        if (qLang && I18N[qLang]) {
+          changeLanguage(qLang);
+          return;
+        }
+        // 2. URL Hash (#vi)
+        const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+        if (hash && I18N[hash]) {
+          changeLanguage(hash);
+          return;
+        }
+        // 3. LocalStorage
+        const saved = localStorage.getItem('sa_portal_lang');
+        if (saved && I18N[saved]) {
+          changeLanguage(saved);
+          return;
+        }
+        // 4. Mobile Browser Locale
+        const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        if (navLang.startsWith('vi')) lang = 'vi';
+        else if (navLang.startsWith('zh')) lang = 'zh';
+        else if (navLang.startsWith('uz')) lang = 'uz';
+        else if (navLang.startsWith('ru')) lang = 'ru';
+        else if (navLang.startsWith('mn')) lang = 'mn';
+        else if (navLang.startsWith('en')) lang = 'en';
+        else lang = 'ko';
+      } catch (e) {
+        lang = 'ko';
+      }
+      changeLanguage(lang);
+    }
+
+    // =========================================================================
+    // GOOGLE APPS SCRIPT WEB APP ENDPOINT CONFIGURATION
+    // Deployed under sasolution.edu@gmail.com
+    // =========================================================================
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwArfO8xOVeibhIJDgc6BOrQt34Pe9Cflt1y9KSSOjudf2MsF8oBO0f-8viqkfvTMUd/exec";
+
+    const attachedFiles = {};
+
+    function handleFile(input, targetId) {
+      const fileNameEl = document.getElementById(targetId);
+      if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        fileNameEl.textContent = "✓ " + file.name + " (" + (file.size / 1024).toFixed(1) + " KB)";
+        fileNameEl.classList.add('attached');
+
+        // Convert file to Base64
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          attachedFiles[targetId] = {
+            name: file.name,
+            mimeType: file.type,
+            base64: e.target.result
+          };
+        };
+        reader.readAsDataURL(file);
+      } else {
+        fileNameEl.textContent = (I18N[currentLang] && I18N[currentLang].no_file) || "No file chosen";
+        fileNameEl.classList.remove('attached');
+        delete attachedFiles[targetId];
+      }
+    }
+
+    function goToStep(step) {
+      if (step === 2) {
+        if (!document.getElementById('fullName').value.trim() || !document.getElementById('passportNo').value.trim()) {
+          alert(currentLang === 'ko' ? '지원자 영문 성명과 여권번호를 입력해 주세요.' : 
+                (currentLang === 'vi' ? 'Vui lòng nhập Họ tên và Số hộ chiếu.' : 
+                (currentLang === 'zh' ? '请填写姓名和护照号码。' : 'Please fill in Full Name and Passport Number.')));
+          return;
+        }
+      }
+
+      if (step === 4) {
+        document.getElementById('rev-name').textContent = document.getElementById('fullName').value || '-';
+        document.getElementById('rev-passport').textContent = document.getElementById('passportNo').value || '-';
+        document.getElementById('rev-univ').textContent = document.getElementById('targetUniv').value || '-';
+        document.getElementById('rev-prog').textContent = document.getElementById('programType').value || '-';
+        document.getElementById('rev-agency').textContent = document.getElementById('agencyName').value || '(Direct)';
+        document.getElementById('rev-contact').textContent = document.getElementById('contactInfo').value || '-';
+      }
+
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`step-${i}`).style.display = (i === step) ? 'block' : 'none';
+        const navItem = document.getElementById(`step-nav-${i}`);
+        if (i < step) {
+          navItem.className = 'step-item completed';
+        } else if (i === step) {
+          navItem.className = 'step-item active';
+        } else {
+          navItem.className = 'step-item';
+        }
+      }
+      window.scrollTo({ top: 180, behavior: 'smooth' });
+    }
+
+    function consentText(key, fallback) {
+      return (I18N[currentLang] && I18N[currentLang][key]) || fallback;
+    }
+
+    function scrollToConsent(el) {
+      if (!el) return;
+      try {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (e) {
+        el.scrollIntoView();
+      }
+    }
+
+    function focusConsent(target) {
+      if (target === 'privacy') {
+        const box = document.getElementById('privacyBox');
+        const cb = document.getElementById('agreePrivacy');
+        const label = document.getElementById('privacyCheckLabel');
+        if (box) box.classList.add('invalid');
+        if (label) label.classList.add('invalid');
+        scrollToConsent(box);
+        if (cb) {
+          try { cb.focus({ preventScroll: true }); } catch (e) { cb.focus(); }
+        }
+        return;
+      }
+      const legalBox = document.querySelector('.legal-box');
+      const termsCb = document.getElementById('agreeTerms');
+      if (legalBox) legalBox.classList.add('invalid');
+      scrollToConsent(legalBox);
+      if (termsCb) {
+        try { termsCb.focus({ preventScroll: true }); } catch (e) { termsCb.focus(); }
+      }
+    }
+
+    function clearConsentError(target) {
+      if (target === 'privacy') {
+        const box = document.getElementById('privacyBox');
+        const label = document.getElementById('privacyCheckLabel');
+        if (box) box.classList.remove('invalid');
+        if (label) label.classList.remove('invalid');
+        return;
+      }
+      const legalBox = document.querySelector('.legal-box');
+      if (legalBox) legalBox.classList.remove('invalid');
+    }
+
+    async function submitApplication() {
+      // 1) 개인정보 수집·이용 동의 (필수)
+      const privacyCb = document.getElementById('agreePrivacy');
+      if (privacyCb && !privacyCb.checked) {
+        alert(consentText('privacy_required_alert', '개인정보 수집·이용에 동의해 주세요.'));
+        focusConsent('privacy');
+        return;
+      }
+
+      // 2) 서류 진위 확인 및 법적 책임 서약
+      const termsCb = document.getElementById('agreeTerms');
+      if (!termsCb.checked) {
+        alert(consentText('terms_required_alert', '서류 위변조 방지 서약에 동의해 주세요.'));
+        focusConsent('terms');
+        return;
+      }
+
+      const submitBtn = document.querySelector('.btn-submit');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = (I18N[currentLang] && I18N[currentLang].btn_uploading) || "⏳ Uploading to SA Solution Cloud Drive... Please wait.";
+
+      const payload = {
+        fullName: document.getElementById('fullName').value.trim(),
+        nationality: document.getElementById('nationality').value,
+        dob: document.getElementById('dob').value,
+        gender: document.getElementById('gender').value,
+        passportNo: document.getElementById('passportNo').value.trim(),
+        intake: document.getElementById('intake').value,
+        targetUniv: document.getElementById('targetUniv').value,
+        programType: document.getElementById('programType').value,
+        agencyName: document.getElementById('agencyName').value.trim(),
+        contactInfo: document.getElementById('contactInfo').value.trim(),
+        files: {
+          passport: attachedFiles['file-passport'] || null,
+          photo: attachedFiles['file-photo'] || null,
+          familyCert: attachedFiles['file-family'] || null,
+          gradCert: attachedFiles['file-grad'] || null,
+          transcripts: attachedFiles['file-trans'] || null,
+          topik: attachedFiles['file-topik'] || null,
+          bankCert: attachedFiles['file-bank'] || null,
+          sponsorIncome: attachedFiles['file-income'] || null,
+          studyPlan: attachedFiles['file-sop'] || null,
+          tbReport: attachedFiles['file-tb'] || null
+        }
+      };
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+
+        if (result.status === "success") {
+          showSuccessScreen(result.applicationId, payload.targetUniv);
+        } else {
+          alert('Submission error: ' + (result.message || 'Unknown error occurred.'));
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Submission failed. Please check your internet connection or try smaller files, then submit again.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    }
+
+    function showSuccessScreen(appId, targetUniv) {
+      currentAppId = appId;
+      document.getElementById('res-app-id').textContent = appId;
+      document.getElementById('res-univ').textContent = targetUniv;
+      const univPayEl = document.getElementById('univ-pay-name');
+      if (univPayEl && targetUniv) univPayEl.textContent = targetUniv;
+
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`step-${i}`).style.display = 'none';
+        const navItem = document.getElementById(`step-nav-${i}`);
+        if (navItem) navItem.className = 'step-item completed';
+      }
+
+      document.getElementById('step-success').style.display = 'block';
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+
+    // =========================================================================
+    // APPLICATION STATUS LOOKUP LOGIC
+    // =========================================================================
+    let currentAppId = "";
+
+    function openStatusModal(prefillAppId) {
+      const modal = document.getElementById('statusModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        if (prefillAppId) {
+          document.getElementById('lookupAppId').value = prefillAppId;
+        }
+      }
+    }
+
+    function closeStatusModal() {
+      const modal = document.getElementById('statusModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function lookupApplication() {
+      const appId = document.getElementById('lookupAppId').value.trim();
+      const passport = document.getElementById('lookupPassport').value.trim();
+
+      if (!appId) {
+        alert('Please enter Application ID.');
+        return;
+      }
+
+      const resultArea = document.getElementById('lookupResult');
+      resultArea.style.display = 'block';
+      document.getElementById('modal-res-name').textContent = 'Searching...';
+
+      try {
+        const queryUrl = `${GOOGLE_SCRIPT_URL}?action=lookup&appId=${encodeURIComponent(appId)}&passportNo=${encodeURIComponent(passport)}`;
+        const res = await fetch(queryUrl);
+        const data = await res.json();
+
+        if (data.status === 'success') {
+          document.getElementById('modal-res-name').textContent = data.name || '-';
+          document.getElementById('modal-res-univ').textContent = `${data.univ} (${data.program})`;
+          document.getElementById('modal-res-step').textContent = data.step || '서류검수중';
+
+          const badge = document.getElementById('modal-res-fee-badge');
+          if (badge) {
+            if (data.feeStatus === '결제완료' || data.feeStatus === '납부완료') {
+              badge.style.background = '#D1FAE5';
+              badge.style.color = '#065F46';
+              badge.textContent = data.feeStatus;
+            } else {
+              badge.style.background = '#E0E7FF';
+              badge.style.color = '#3730A3';
+              badge.textContent = data.feeStatus || '대학 직납 안내 대기';
+            }
+          }
+        } else {
+          document.getElementById('modal-res-name').textContent = 'Not Found';
+          document.getElementById('modal-res-univ').textContent = data.message || 'No match found.';
+          document.getElementById('modal-res-step').textContent = '-';
+          const badge = document.getElementById('modal-res-fee-badge');
+          if (badge) badge.textContent = '-';
+        }
+      } catch (err) {
+        document.getElementById('modal-res-name').textContent = 'Lookup Error';
+        document.getElementById('modal-res-univ').textContent = 'Connection failed. Please try again.';
+        document.getElementById('modal-res-step').textContent = '-';
+        const badge = document.getElementById('modal-res-fee-badge');
+        if (badge) badge.textContent = '-';
+      }
+    }
+
+    // Check URL parameters for direct lookup (?appId=SA27-D4-001)
+    window.addEventListener('load', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramAppId = (window.__GAS_PARAMS__ && window.__GAS_PARAMS__.appId) || urlParams.get('appId');
+      if (paramAppId) {
+        openStatusModal(paramAppId);
+      }
+    });
+
+    // Initialize Language
+    document.addEventListener('DOMContentLoaded', initLanguage);
+  </script>
+
+  <!-- STATUS & PAYMENT MODAL -->
+  <div id="statusModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="font-size: 18px; font-weight: 700; color: #1E293B; display: flex; align-items: center; gap: 8px;">
+          <span>🔍</span> <span data-i18n="modal_lookup_title">접수 내역 및 서류 심사 조회</span>
+        </h3>
+        <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: var(--muted); line-height: 1;">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.5;" data-i18n="modal_lookup_desc">
+        공식 접수번호(예: SA27-D4-001)와 여권번호를 입력하시면 1차 서류 검수 진행 상태와 대학 인계 현황을 확인하실 수 있습니다.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
+        <div>
+          <label style="font-size: 12px; font-weight: 600; color: var(--dark); display: block; margin-bottom: 4px;" data-i18n="modal_app_id_label">접수 번호 (Application ID) *</label>
+          <input type="text" id="lookupAppId" placeholder="예: SA27-D4-001" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; text-transform: uppercase;">
+        </div>
+        <div>
+          <label style="font-size: 12px; font-weight: 600; color: var(--dark); display: block; margin-bottom: 4px;" data-i18n="modal_passport_label">여권 번호 (Passport No) *</label>
+          <input type="text" id="lookupPassport" placeholder="예: C12345678" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; text-transform: uppercase;">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="lookupApplication()" style="padding: 12px; font-weight: 600; margin-top: 4px;" data-i18n="btn_lookup">
+          조회하기
+        </button>
+      </div>
+
+      <!-- LOOKUP RESULT AREA -->
+      <div id="lookupResult" style="display: none; border-top: 1px solid #E2E8F0; padding-top: 16px;">
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px; margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
+            <span style="color: var(--muted);">지원자 성명:</span>
+            <strong id="modal-res-name">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
+            <span style="color: var(--muted);">지망 대학 / 과정:</span>
+            <span id="modal-res-univ">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
+            <span style="color: var(--muted);">서류 진행 상태:</span>
+            <strong id="modal-res-step" style="color: var(--primary);">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #CBD5E1; padding-top: 8px; margin-top: 8px; font-size: 13px;">
+            <span style="color: var(--muted);">전형료 결제:</span>
+            <span id="modal-res-fee-badge" style="padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 700;">-</span>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
